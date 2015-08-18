@@ -52,6 +52,11 @@ public class indexController {
         }
         model.addObject("navegador", htmlUtil.getButtonsRuta(tempFile));
         model.addObject("ubicado" , tempFile.getPath());
+        
+        if(!tempFile.isDirectory()){
+        model.addObject("img",htmlUtil.processImgHtml(tempFile.getPath()));
+        }
+        
         model.setViewName("content/filemanager");
         return model;
     }

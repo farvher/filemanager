@@ -80,5 +80,5 @@
         </c:forEach> 
     </tbody>
     <c:if test="${empty root}"><h3 class="alert-warning">No se encontraron archivos</h3></c:if>
-
+${img}
 </table>
