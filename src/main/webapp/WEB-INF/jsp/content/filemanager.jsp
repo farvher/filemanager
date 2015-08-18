@@ -11,7 +11,7 @@
             <c:forEach var="nav" items="${navegador}" >
         <li ><a href="#"  onclick="navegacionBreadCrum(${ubicado})"  title="${fn:indexOf(ubicado, nav) } - ${ubicado} - ${nav}"  >${nav}</a></li>
         </c:forEach>
-        
+
 </ol>
 <!--<nav>
     <ul class="pager">
@@ -19,9 +19,7 @@
     </ul>
 </nav>-->
 
-<div id="cargando"  style="display: none">
-    <img src="<%=request.getContextPath().toString()%>/resources/img/loading.gif" style="width: 20px"/>
-</div>        
+       
 <table class="table table-responsive table-bordered table-hover table-striped" >
     <thead>
         <tr>
@@ -80,5 +78,11 @@
         </c:forEach> 
     </tbody>
     <c:if test="${empty root}"><h3 class="alert-warning">No se encontraron archivos</h3></c:if>
-${img}
+    
+    <c:if test="${!empty img}">
+        
+    <div id="imgprev" style="display: none">
+        ${img}
+    </div>
+    </c:if>
 </table>

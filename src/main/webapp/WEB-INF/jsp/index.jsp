@@ -13,6 +13,7 @@
 
         <!-- Bootstrap -->
         <link href="<%=request.getContextPath().toString() %>/resources/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//code.jquery.com/ui/1.11.4/themes/ui-darkness/jquery-ui.css" rel="stylesheet">
         
       
         <!--[if lt IE 9]>
@@ -49,6 +50,7 @@
         <script src="<%=request.getContextPath().toString() %>/resources/js/bootstrap.min.js"></script>
         <script src="<%=request.getContextPath().toString() %>/resources/js/listeners.js" rel="stylesheet"></script>
         <script src="<%=request.getContextPath().toString() %>/resources/js/ajax.js" rel="stylesheet"></script>
+        <script src="<%=request.getContextPath().toString() %>/resources/js/jqueryui/jquery-ui.js" rel="stylesheet"></script>
 
     </body>
 </html>

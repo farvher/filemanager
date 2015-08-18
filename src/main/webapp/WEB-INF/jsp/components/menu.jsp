@@ -16,7 +16,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="<%=request.getContextPath().toString() %>">FileManager</a>
-            
+
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -56,6 +56,9 @@
                     </ul>
                 </li>
             </ul>
+            <div id="cargando"  style="display: none">
+                <img src="<%=request.getContextPath().toString()%>/resources/img/loading.gif" style="width: 20px"/>
+            </div> 
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 
