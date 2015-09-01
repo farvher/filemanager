@@ -39,7 +39,7 @@ public class FileSort {
     }
 
     public static File[] orderByTypeAsc(File[] archivos) {
-       
+
         Arrays.sort(archivos, new Comparator<File>() {
             public int compare(File a, File b) {
                 int com = 0;
@@ -55,8 +55,9 @@ public class FileSort {
         });
         return archivos;
     }
+
     public static File[] orderByTypeDesc(File[] archivos) {
-       
+
         Arrays.sort(archivos, new Comparator<File>() {
             public int compare(File a, File b) {
                 int com = 0;
@@ -72,5 +73,26 @@ public class FileSort {
         });
         return archivos;
     }
+
+    public static String getFileType(File f) {
+
+        String type = "";
+        try {
+            type= Files.probeContentType(Paths.get(f.getAbsolutePath()));
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return type;
+    
+    }
+    
+    
+    public static boolean isImagen(String tipo){
+    return tipo.contains("image");
+        
+    }
+    
 
 }

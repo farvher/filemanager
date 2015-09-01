@@ -59,7 +59,10 @@ public class indexController {
         model.addObject("ubicado", tempFile.getPath());
 
         if (!tempFile.isDirectory()) {
+            String tiPoArchivo = FileSort.getFileType(tempFile);
+            System.out.println("archivo tipo "+tiPoArchivo);
             model.addObject("img", htmlUtil.processImgHtml(tempFile.getPath()));
+            model.addObject("tipo",tiPoArchivo);
         }
 
         model.setViewName("content/filemanager");

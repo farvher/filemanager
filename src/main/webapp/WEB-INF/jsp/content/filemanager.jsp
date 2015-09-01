@@ -87,6 +87,7 @@
         
     <div id="imgprev" style="display: none">
         ${img}
+        <font color ="white" >${tipo}</font> 
     </div>
     </c:if>
 </table>
