@@ -55,5 +55,22 @@ public class FileSort {
         });
         return archivos;
     }
+    public static File[] orderByTypeDesc(File[] archivos) {
+       
+        Arrays.sort(archivos, new Comparator<File>() {
+            public int compare(File a, File b) {
+                int com = 0;
+                try {
+                    String typeA = Files.probeContentType(Paths.get(a.getAbsolutePath()));
+                    String typeB = Files.probeContentType(Paths.get(b.getAbsolutePath()));
+                    com = typeA.compareTo(typeB);
+                } catch (IOException ex) {
+                }
+
+                return com;
+            }
+        });
+        return archivos;
+    }
 
 }
