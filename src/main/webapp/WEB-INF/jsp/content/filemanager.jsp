@@ -39,12 +39,16 @@
                     <c:choose>
                         <c:when test="${r.isDirectory()}">
                             <td>
+                                <button type="button" class="btn btn-default btn-lg btn-info">
                                 <span class="glyphicon glyphicon-folder-open "   aria-hidden="true" ></span>
+                                </button>
                             </td>
                         </c:when>
                         <c:otherwise>
                             <td class=""> 
+                                <button type="button" class="btn btn-default btn-lg btn-warning">
                                 <span class="glyphicon glyphicon-file  " aria-hidden="true"></span>
+                                </button>
                             </td>
                         </c:otherwise>
                     </c:choose>

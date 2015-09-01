@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+var path = document.location.pathname;
 function itemLIstener() {
     $(".items").on("click", function () {
         var ruta = this.cells[1].title//toma la segunda columna de la fila escogida 
-        var url = "/FIleManager/buscar/";
+        var url = path +"/buscar/";
         var rendered = $("#manejador");
         AjaxGenericHTML(url, rendered, {ruta: ruta})
         if (document.getElementById("imgprev")) {
@@ -18,7 +18,7 @@ function itemLIstener() {
 }
 
 function busquedaBasicaURL(busqueda) {
-    var url = "/FIleManager/filtro/";
+    var url = path+"/filtro/";
     var rendered = $("#manejador");
     if (busqueda != "") {
         AjaxGenericHTML(url, rendered, {palabra: busqueda})
@@ -28,7 +28,7 @@ function busquedaBasicaURL(busqueda) {
 }
 
 function navegacionBreadCrum(ruta) {
-    var url = "/FIleManager/buscar/";
+    var url = path+"/buscar/";
     var rendered = $("#manejador");
     AjaxGenericHTML(url, rendered, {ruta: ruta})
 }
