@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-           xmlns:mvc="http://www.springframework.org/schema/mvc"
-           xmlns:context="http://www.springframework.org/schema/context"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xmlns:p="http://www.springframework.org/schema/p"
-           xsi:schemaLocation="
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
         http://www.springframework.org/schema/beans     
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc 
@@ -24,5 +24,11 @@
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
 
-   
+    <bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+    <!-- one of the properties available; the maximum file size in bytes -->
+
+</bean>
+    
 </beans>

@@ -9,7 +9,7 @@
 
 
 function AjaxGenericHTML(url, div, param) {
-    console.log("busqueda ajax : " + url + " params : "+ JSON.stringify(param));
+    console.log("busqueda ajax : " + url + " params : " + JSON.stringify(param));
     gifStart();
     $.ajax({
         url: url,
@@ -17,11 +17,12 @@ function AjaxGenericHTML(url, div, param) {
         data: param,
         success: function (data, textStatus, jqXHR) {
             $(div).html(data);
+           
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert('ha ocurrido un error' + jqXHR+" - "+ textStatus + " - "+ errorThrown);
+            alert('ha ocurrido un error' + jqXHR + " - " + textStatus + " - " + errorThrown);
         }
-        ,complete: function (jqXHR, textStatus) {
+        , complete: function (jqXHR, textStatus) {
             gifStop();
         }
     });
@@ -30,11 +31,11 @@ function AjaxGenericHTML(url, div, param) {
 }
 
 
-function gifStart(){
-    
-    $("#cargando").css("display","block");
+function gifStart() {
+
+    $("#cargando").css("display", "block");
 }
-function gifStop(){
-    
-    $("#cargando").css("display","none");
+function gifStop() {
+
+    $("#cargando").css("display", "none");
 }

@@ -15,7 +15,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<%=request.getContextPath().toString() %>">FileManager</a>
+            <a class="navbar-brand" href="<%=request.getContextPath().toString()%>">FileManager</a>
 
         </div>
 
@@ -25,7 +25,7 @@
                 <li class="active"><a href="#">Link </a></li>
                 <li><a href="#">Link</a></li>
             </ul>
-            <form class="navbar-form navbar-left" role="search" onsubmit="return busquedaBasicaURL(document.getElementById('busqueda').value,document.getElementById('ubicado').value)" method="GET"  >
+            <form class="navbar-form navbar-left" role="search" onsubmit="return busquedaBasicaURL(document.getElementById('busqueda').value, document.getElementById('ubicado').value)" method="GET"  >
                 <div class="form-group">
                     <input type="text" class="form-control col-xs-push-5" id="busqueda" name="busqueda" placeholder="${ubicado}">
                 </div>
@@ -33,7 +33,7 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="" title="Subir archivo"> <span class="glyphicon glyphicon-upload"></span></a>>
+                    <a id="falseinput"> <span class="glyphicon glyphicon-upload"></span></a>>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -46,6 +46,9 @@
                     </ul>
                 </li>
             </ul>
+            <form>
+                <input id="fileinput" type="file" style="display:none;"/>
+            </form>
             <div id="cargando"  style="display: none">
                 <img src="<%=request.getContextPath().toString()%>/resources/img/loading.gif" style="width: 20px"/>
             </div> 
@@ -53,3 +56,9 @@
     </div><!-- /.container-fluid -->
 
 </nav>
+<h3>upload</h3>
+<form method="post" action="<%=request.getContextPath().toString()%>/form" enctype="multipart/form-data">
+    <input type="text" name="ruta" value="${ubicado}"/>
+    <input type="file" name="file" required=""/>
+    <input type="submit"/>
+</form>

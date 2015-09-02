@@ -10,16 +10,16 @@ import com.farvher.filemanager.util.FileBuscador;
 import com.farvher.filemanager.util.FileSort;
 import com.farvher.filemanager.util.HtmlUtil;
 import java.io.File;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -38,6 +38,13 @@ public class indexController {
     @Autowired
     FIleManager filemanager;
 
+    /*MAPEO INICIO
+     @autor Farith Sanmiguel
+     en la pagina de inicio de la aplicacion lista
+     todos los archivos encontrados en la carpeta del usuario 
+     logueado en el SO
+     EJ: /home/farith - c://users/farith
+     */
     @RequestMapping(value = {"/", ""})
     public ModelAndView getIndex(ModelAndView model) {
         String curDir = System.getProperty("user.home");
@@ -51,6 +58,14 @@ public class indexController {
         return model;
     }
 
+    /*MAPEO NAVEGADOR
+     @autor Farith Sanmiguel
+     recibe como parametro la ruta a donde desea ir , y lista todos
+     los archivos contenidos dentro del directorio
+     Si NO es un directorio, muestra la ruta padre y el contenido
+     del archivo
+  
+     */
     @RequestMapping(value = {"/buscar/", "/buscar"})
     public ModelAndView getContentAjax(@RequestParam String ruta, ModelAndView model) {
         File tempFile = new File(ruta);
@@ -76,6 +91,11 @@ public class indexController {
         return model;
     }
 
+    /*MAPEO BUSCADOR DE ARCHIVOS
+     @autor Farith sanmiguel
+     El metodo recibe la palabra que desea buscar y la ruta
+     donde realizara la busqueda 
+     */
     @RequestMapping(value = {"/filtro/", "/filtro"})
     public ModelAndView getContentAjaxFiltro(@RequestParam String palabra, @RequestParam String buscardesde, ModelAndView model) {
         FileBuscador searcher = new FileBuscador();
@@ -93,6 +113,15 @@ public class indexController {
         return model;
     }
 
+    
+
+    /*MAPEO DE ERROR 404 
+     @autor Farith sanmiguel
+     En el web.xml se especifica que al no encontrar un recurso 
+     debe redireccionar al siguiente controlador, este renderizara 
+     una vista donde nos muestra un mensaje y un boton para 
+     retornar al inicio
+     */
     @RequestMapping(value = {"/error/404", "error/404"})
     public ModelAndView error404(String mensajeError) {
         ModelAndView model = new ModelAndView("error/404");

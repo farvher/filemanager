@@ -20,7 +20,7 @@
 </nav>-->
 <input type="hidden" id="ubicado" value="${ubicado}">
 
-       
+
 <table class="table table-responsive table-bordered table-hover table-striped" >
     <thead>
         <tr>
@@ -41,14 +41,14 @@
                         <c:when test="${r.isDirectory()}">
                             <td>
                                 <button type="button" class="btn btn-default btn-lg btn-info">
-                                <span class="glyphicon glyphicon-folder-open "   aria-hidden="true" ></span>
+                                    <span class="glyphicon glyphicon-folder-open "   aria-hidden="true" ></span>
                                 </button>
                             </td>
                         </c:when>
                         <c:otherwise>
                             <td class=""> 
                                 <button type="button" class="btn btn-default btn-lg btn-warning">
-                                <span class="glyphicon glyphicon-file  " aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-file  " aria-hidden="true"></span>
                                 </button>
                             </td>
                         </c:otherwise>
@@ -83,12 +83,11 @@
         </c:forEach> 
     </tbody>
     <c:if test="${empty root}"><h3 class="alert-warning">No se encontraron archivos</h3></c:if>
-    
+
     <c:if test="${!empty img}">
-        
-    <div id="imgprev" >
-        ${img}
-        <font color ="white" >${tipo}</font> 
-    </div>
+        <div id="imgprev" class="well"  >
+            ${img}
+            <font color ="white" >${tipo}</font> 
+        </div>
     </c:if>
 </table>
