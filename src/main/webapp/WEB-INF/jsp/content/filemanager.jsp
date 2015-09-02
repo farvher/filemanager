@@ -9,7 +9,7 @@
 <ol class="breadcrumb">
     <li><a href="<%=request.getContextPath().toString()%>"><span class="glyphicon glyphicon-hdd"></span></a></li>
             <c:forEach var="nav" items="${navegador}" >
-        <li ><a href="#"  onclick="navegacionBreadCrum(${ubicado})"  title="${fn:indexOf(ubicado, nav) } - ${ubicado} - ${nav}"  >${nav}</a></li>
+        <li ><a href="#"  onclick="navegacionBreadCrum(${ubicado})"  title=" ${ubicado} - ${nav}"  >${nav}</a></li>
         </c:forEach>
 
 </ol>
@@ -18,6 +18,7 @@
         <li><a href="#">Previous</a></li>
     </ul>
 </nav>-->
+<input type="hidden" id="ubicado" value="${ubicado}">
 
        
 <table class="table table-responsive table-bordered table-hover table-striped" >
@@ -85,7 +86,7 @@
     
     <c:if test="${!empty img}">
         
-    <div id="imgprev" style="display: none">
+    <div id="imgprev" >
         ${img}
         <font color ="white" >${tipo}</font> 
     </div>

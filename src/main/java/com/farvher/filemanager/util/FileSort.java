@@ -5,7 +5,9 @@
  */
 package com.farvher.filemanager.util;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -78,21 +80,38 @@ public class FileSort {
 
         String type = "";
         try {
-            type= Files.probeContentType(Paths.get(f.getAbsolutePath()));
+            type = Files.probeContentType(Paths.get(f.getAbsolutePath()));
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
         return type;
-    
+
     }
-    
-    
-    public static boolean isImagen(String tipo){
-    return tipo.contains("image");
-        
+
+    public static boolean isImagen(String tipo) {
+        return tipo.contains("image");
+
     }
-    
+
+    public static String readFileAsString(String filePath) {
+        StringBuffer fileData = new StringBuffer();
+        try {
+            BufferedReader reader = new BufferedReader(
+                    new FileReader(filePath));
+            char[] buf = new char[1024];
+            int numRead = 0;
+            while ((numRead = reader.read(buf)) != -1) {
+                String readData = String.valueOf(buf, 0, numRead);
+                fileData.append(readData);
+            }
+            reader.close();
+        } catch (Exception e) {
+            System.out.println("No se pudo convertir el archivo");
+        }
+
+        return fileData.toString();
+    }
 
 }

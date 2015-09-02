@@ -10,18 +10,21 @@ function itemLIstener() {
         var url = path +"/buscar/";
         var rendered = $("#manejador");
         AjaxGenericHTML(url, rendered, {ruta: ruta})
+        updateBuscador(ruta);
         if (document.getElementById("imgprev")) {
-            previImg();
+//           previImg(); 
         }
+        
     });
 
 }
 
-function busquedaBasicaURL(busqueda) {
+function busquedaBasicaURL(busqueda,desde) {
     var url = path+"/filtro/";
     var rendered = $("#manejador");
     if (busqueda != "") {
-        AjaxGenericHTML(url, rendered, {palabra: busqueda})
+        AjaxGenericHTML(url, rendered, {palabra: busqueda , buscardesde : desde})
+        
 
     }
     return false;
@@ -31,6 +34,17 @@ function navegacionBreadCrum(ruta) {
     var url = path+"/buscar/";
     var rendered = $("#manejador");
     AjaxGenericHTML(url, rendered, {ruta: ruta})
+}
+
+function updateBuscador(ruta){
+    try {
+        var carpetas =ruta.split("/");
+        $("#busqueda").attr("placeholder","Buscar en "+carpetas[carpetas.length-1])//actualiza el placeholder de buscar
+    } catch (e) {
+       $("#busqueda").attr("placeholder",ruta); 
+    }
+
+    
 }
 
 

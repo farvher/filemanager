@@ -10,6 +10,10 @@ import com.farvher.filemanager.util.FileBuscador;
 import com.farvher.filemanager.util.FileSort;
 import com.farvher.filemanager.util.HtmlUtil;
 import java.io.File;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Comparator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +42,7 @@ public class indexController {
     public ModelAndView getIndex(ModelAndView model) {
         String curDir = System.getProperty("user.home");
         File[] tempFolder = new File(curDir).listFiles();
-        tempFolder= FileSort.orderByTypeAsc(tempFolder);
+        tempFolder = FileSort.orderByTypeAsc(tempFolder);
 
         model.addObject("root", tempFolder);
         model.addObject("navegador", htmlUtil.getButtonsRuta(tempFolder[0].getParentFile()));
@@ -60,9 +64,12 @@ public class indexController {
 
         if (!tempFile.isDirectory()) {
             String tiPoArchivo = FileSort.getFileType(tempFile);
-            System.out.println("archivo tipo "+tiPoArchivo);
-            model.addObject("img", htmlUtil.processImgHtml(tempFile.getPath()));
-            model.addObject("tipo",tiPoArchivo);
+            if (tiPoArchivo.contains("image")) {
+                model.addObject("img", htmlUtil.processImgHtml(tempFile.getPath()));
+            } else {
+                model.addObject("img", FileSort.readFileAsString(tempFile.getAbsolutePath()));
+            }
+            model.addObject("tipo", tiPoArchivo);
         }
 
         model.setViewName("content/filemanager");
@@ -70,15 +77,16 @@ public class indexController {
     }
 
     @RequestMapping(value = {"/filtro/", "/filtro"})
-    public ModelAndView getContentAjaxFiltro(@RequestParam String palabra, ModelAndView model) {
+    public ModelAndView getContentAjaxFiltro(@RequestParam String palabra, @RequestParam String buscardesde, ModelAndView model) {
         FileBuscador searcher = new FileBuscador();
-        String buscarDesde = System.getProperty("user.home");
-        File[] filesFinded = searcher.buscarPorPalabra(new File(buscarDesde), palabra);
+        //   String buscardesde = System.getProperty("user.home");
+        File[] filesFinded = searcher.buscarPorPalabra(new File(buscardesde), palabra);
 
         if (filesFinded != null) {
             filesFinded = FileSort.orderByTypeAsc(filesFinded);
             model.addObject("root", filesFinded);
         }
+        model.addObject("ubicado", buscardesde);
         model.addObject("navegador", filesFinded.length + " resultados encontrados para '" + palabra + "'");
         model.setViewName("content/filemanager");
 
