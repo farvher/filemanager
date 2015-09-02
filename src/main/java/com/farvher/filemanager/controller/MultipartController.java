@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -35,10 +36,13 @@ public class MultipartController {
 
     @Autowired
     FIleManager filemanager;
+    
+    @Autowired
+    indexController indexController;
 
     @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String handleFormUpload(@RequestParam("ruta") String ruta,
-            @RequestParam("file") MultipartFile file) throws IOException {
+    public void  handleFormUpload(@RequestParam("ruta") String ruta,
+            @RequestParam("file") MultipartFile file ,ModelAndView model) throws IOException {
         try {
             String nameFile = file.getOriginalFilename();
             InputStream input = file.getInputStream();
@@ -48,11 +52,12 @@ public class MultipartController {
             while ((read = input.read(bytes)) != -1) {
                 ouput.write(bytes, 0, read);
             }
+            System.out.println("Archivo cargado en "+ruta+"/"+nameFile);
         } catch (Exception e) {
             System.out.println("ha ocurrido un error cargando el archivo" + e.getMessage());
         } finally {
         }
-        return "redirect:/";
+  
     }
 
 }

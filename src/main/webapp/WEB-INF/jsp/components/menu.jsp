@@ -46,9 +46,7 @@
                     </ul>
                 </li>
             </ul>
-            <form>
-                <input id="fileinput" type="file" style="display:none;"/>
-            </form>
+
             <div id="cargando"  style="display: none">
                 <img src="<%=request.getContextPath().toString()%>/resources/img/loading.gif" style="width: 20px"/>
             </div> 
@@ -56,9 +54,9 @@
     </div><!-- /.container-fluid -->
 
 </nav>
-<h3>upload</h3>
-<form method="post" action="<%=request.getContextPath().toString()%>/form" enctype="multipart/form-data">
-    <input type="text" name="ruta" value="${ubicado}"/>
-    <input type="file" name="file" required=""/>
-    <input type="submit"/>
+
+<!--Formulario escondido para enviar los archivos al controlador-->
+<form method="post" id="cargar" action="<%=request.getContextPath().toString()%>/form" enctype="multipart/form-data">
+    <input type="text" name="ruta" id="namefile" value="${ubicado}"/>
+    <input type="file" id="fileinput" name="file" style="display: none"/>
 </form>

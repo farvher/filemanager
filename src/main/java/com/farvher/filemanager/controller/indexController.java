@@ -69,6 +69,7 @@ public class indexController {
     @RequestMapping(value = {"/buscar/", "/buscar"})
     public ModelAndView getContentAjax(@RequestParam String ruta, ModelAndView model) {
         File tempFile = new File(ruta);
+        model = model == null ? new ModelAndView() : model;
         File[] filesFinded = filemanager.getFolder(ruta);
         if (filesFinded != null) {
             filesFinded = FileSort.orderByTypeAsc(filesFinded);
@@ -112,8 +113,6 @@ public class indexController {
 
         return model;
     }
-
-    
 
     /*MAPEO DE ERROR 404 
      @autor Farith sanmiguel

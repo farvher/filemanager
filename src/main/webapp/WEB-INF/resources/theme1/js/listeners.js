@@ -10,9 +10,6 @@ function itemLIstener() {
         var url = path + "/buscar/";
         var rendered = $("#manejador");
         AjaxGenericHTML(url, rendered, {ruta: ruta})
-//        if (document.getElementById("imgprev")) {
-//            previImg();
-//        }
         updateBuscador(ruta);
 
     });
@@ -38,6 +35,7 @@ function navegacionBreadCrum(ruta) {
 
 function updateBuscador(ruta) {
     try {
+        $("#namefile").val(ruta);
         var carpetas = ruta.split("/");
         $("#busqueda").attr("placeholder", "Buscar en " + carpetas[carpetas.length - 1])//actualiza el placeholder de buscar
     } catch (e) {
@@ -51,9 +49,7 @@ function updateBuscador(ruta) {
 $(document).ready(function () {
     itemLIstener();
     animationImg();
-    $('#falseinput').click(function () {
-        $("#fileinput").click();
-    });
+    formularioMultipart();
 });
 
 $(document).ajaxComplete(function () {
@@ -67,6 +63,20 @@ function replaceAll(text, busca, reemplaza) {
     while (text.toString().indexOf(busca) != - 1)
         text = text.toString().replace(busca, reemplaza);
     return text;
+}
+function formularioMultipart(){
+    
+    $('#falseinput').click(function () {
+        $("#fileinput").click();
+    }); 
+    $("#fileinput").change(function(e){
+        var enviar = confirm("Desea cargar el archivo"+ e.name)
+        if (enviar) {
+            $("#cargar").submit();
+        }
+        
+    })
+    
 }
 
 
