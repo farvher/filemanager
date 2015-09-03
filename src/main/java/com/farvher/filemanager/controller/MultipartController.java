@@ -8,10 +8,12 @@ package com.farvher.filemanager.controller;
 import com.farvher.filemanager.domain.FIleManager;
 import com.farvher.filemanager.util.FileBuscador;
 import com.farvher.filemanager.util.HtmlUtil;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.regex.Pattern;
 import javax.servlet.annotation.MultipartConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,28 +38,31 @@ public class MultipartController {
 
     @Autowired
     FIleManager filemanager;
-    
+
     @Autowired
     indexController indexController;
 
     @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public void  handleFormUpload(@RequestParam("ruta") String ruta,
-            @RequestParam("file") MultipartFile file ,ModelAndView model) throws IOException {
+    public String handleFormUpload(@RequestParam("ruta") String ruta,
+            @RequestParam("file") MultipartFile file, ModelAndView model) throws IOException {
         try {
+
+            String separador =File.separator;
             String nameFile = file.getOriginalFilename();
+            System.out.println("Archivo cargado en " + ruta + separador + nameFile);
             InputStream input = file.getInputStream();
-            OutputStream ouput = new FileOutputStream(ruta + "/" + nameFile);
+            OutputStream ouput = new FileOutputStream(ruta + separador + nameFile);
             int read = 0;
             byte[] bytes = new byte[1024];
             while ((read = input.read(bytes)) != -1) {
                 ouput.write(bytes, 0, read);
             }
-            System.out.println("Archivo cargado en "+ruta+"/"+nameFile);
+
         } catch (Exception e) {
             System.out.println("ha ocurrido un error cargando el archivo" + e.getMessage());
         } finally {
         }
-  
+        return "redirect:/";
     }
 
 }

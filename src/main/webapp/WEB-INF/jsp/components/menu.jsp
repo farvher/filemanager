@@ -33,7 +33,7 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a id="falseinput"> <span class="glyphicon glyphicon-upload"></span></a>>
+                    <a id="falseinput" href="#"> <span class="glyphicon glyphicon-upload"></span></a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -57,6 +57,6 @@
 
 <!--Formulario escondido para enviar los archivos al controlador-->
 <form method="post" id="cargar" action="<%=request.getContextPath().toString()%>/form" enctype="multipart/form-data">
-    <input type="text" name="ruta" id="namefile" value="${ubicado}"/>
+    <input type="hidden" name="ruta" id="namefile" value="${ubicado}"/>
     <input type="file" id="fileinput" name="file" style="display: none"/>
 </form>

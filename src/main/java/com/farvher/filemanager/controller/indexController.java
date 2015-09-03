@@ -49,7 +49,7 @@ public class indexController {
     public ModelAndView getIndex(ModelAndView model) {
         String curDir = System.getProperty("user.home");
         File[] tempFolder = new File(curDir).listFiles();
-        tempFolder = FileSort.orderByTypeAsc(tempFolder);
+//        tempFolder = FileSort.orderByTypeAsc(tempFolder);
 
         model.addObject("root", tempFolder);
         model.addObject("navegador", htmlUtil.getButtonsRuta(tempFolder[0].getParentFile()));
@@ -69,10 +69,9 @@ public class indexController {
     @RequestMapping(value = {"/buscar/", "/buscar"})
     public ModelAndView getContentAjax(@RequestParam String ruta, ModelAndView model) {
         File tempFile = new File(ruta);
-        model = model == null ? new ModelAndView() : model;
         File[] filesFinded = filemanager.getFolder(ruta);
         if (filesFinded != null) {
-            filesFinded = FileSort.orderByTypeAsc(filesFinded);
+//            filesFinded = FileSort.orderByTypeAsc(filesFinded);
             model.addObject("root", filesFinded);
         }
         model.addObject("navegador", htmlUtil.getButtonsRuta(tempFile));
@@ -104,7 +103,7 @@ public class indexController {
         File[] filesFinded = searcher.buscarPorPalabra(new File(buscardesde), palabra);
 
         if (filesFinded != null) {
-            filesFinded = FileSort.orderByTypeAsc(filesFinded);
+//            filesFinded = FileSort.orderByTypeAsc(filesFinded);
             model.addObject("root", filesFinded);
         }
         model.addObject("ubicado", buscardesde);
