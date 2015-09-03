@@ -33,9 +33,9 @@ function AjaxGenericHTML(url, div, param) {
 
 function gifStart() {
 
-    $("#cargando").css("display", "block");
+    $("#cargando").show()
 }
 function gifStop() {
 
-    $("#cargando").css("display", "none");
+    $("#cargando").hide()
 }

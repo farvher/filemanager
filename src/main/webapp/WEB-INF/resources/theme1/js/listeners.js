@@ -57,6 +57,9 @@ $(document).ajaxComplete(function () {
     itemLIstener();
     animationImg();
 })
+$(document).on("keyup",function () {
+    $("#busqueda").focus();
+})
 
 
 function replaceAll(text, busca, reemplaza) {
@@ -64,20 +67,22 @@ function replaceAll(text, busca, reemplaza) {
         text = text.toString().replace(busca, reemplaza);
     return text;
 }
-function formularioMultipart(){
-    
+function formularioMultipart() {
+
     $('#falseinput').click(function () {
         $("#fileinput").click();
-    }); 
-    $("#fileinput").change(function(e){
-        var enviar = confirm("Desea cargar el archivo"+ e.name)
+    });
+    $("#fileinput").change(function (e) {
+        var enviar = confirm("Desea cargar el archivo " + this.value)
         if (enviar) {
             $("#cargar").submit();
         }
-        
+
     })
-    
+
 }
+
+
 
 
 
@@ -85,11 +90,15 @@ function formularioMultipart(){
 function animationImg() {
 
     var div = $("#imgprev");
-    div.dialog({
-        modal: true, closeOnEscape: true, resizable: true,
-        show: {effect: "blind", duration: 800}
-
-    });
+//    div.dialog({
+//        closeOnEscape: true, resizable: true,
+//        show: {effect: "blind", duration: 800},
+//        close: function (event, ui) {
+//            $("#imgprev").destroy();
+//        }
+//
+//    });
+div.show()
 
 
 }

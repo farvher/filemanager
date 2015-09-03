@@ -27,29 +27,20 @@
             </ul>
             <form class="navbar-form navbar-left" role="search" onsubmit="return busquedaBasicaURL(document.getElementById('busqueda').value, document.getElementById('ubicado').value)" method="GET"  >
                 <div class="form-group">
-                    <input type="text" class="form-control col-xs-push-5" id="busqueda" name="busqueda" placeholder="${ubicado}">
+                    <input type="text" class="form-control " id="busqueda" name="busqueda" placeholder="${ubicado}">
                 </div>
                 <input type="submit" class="btn btn-default" value="Buscar">
             </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a id="falseinput" href="#"> <span class="glyphicon glyphicon-upload"></span></a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
 
-            <div id="cargando"  style="display: none">
-                <img src="<%=request.getContextPath().toString()%>/resources/img/loading.gif" style="width: 20px"/>
-            </div> 
+                <form class="navbar-form">
+                <button class="btn  btn-default" id="falseinput"> <span class="glyphicon glyphicon-upload"></span></button>
+                <button class="btn  btn-success" id="cargando" style="display: none">
+                    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate">
+                    </span>
+                </button>
+            </form>
+
+
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 
@@ -60,3 +51,21 @@
     <input type="hidden" name="ruta" id="namefile" value="${ubicado}"/>
     <input type="file" id="fileinput" name="file" style="display: none"/>
 </form>
+
+<style>
+    .glyphicon-refresh-animate {
+        -animation: spin .7s infinite linear;
+        -webkit-animation: spin2 .7s infinite linear;
+    }
+
+    @-webkit-keyframes spin2 {
+        from { -webkit-transform: rotate(0deg);}
+        to { -webkit-transform: rotate(360deg);}
+    }
+
+    @keyframes spin {
+        from { transform: scale(1) rotate(0deg);}
+        to { transform: scale(1) rotate(360deg);}
+    }
+</style>
+

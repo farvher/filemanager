@@ -24,8 +24,8 @@
 <table class="table table-responsive table-bordered table-hover table-striped" >
     <thead>
         <tr>
-            <th>Tipo</th>
             <th>Dir/File</th>
+            <th>Nombre</th>
             <!--<th>Ruta</th>-->
             <!--<th>Parent</th>-->
             <th>Descargar</th>

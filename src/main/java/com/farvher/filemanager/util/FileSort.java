@@ -110,8 +110,9 @@ public class FileSort {
         } catch (Exception e) {
             System.out.println("No se pudo convertir el archivo");
         }
+        String resultado = fileData.toString().length()>=2000 ? fileData.toString().substring(0, 1900) + " ...  " :fileData.toString();
 
-        return fileData.toString();
+        return resultado;
     }
 
 }
