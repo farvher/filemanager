@@ -87,9 +87,13 @@
     <c:if test="${empty root}"><h3 class="alert-warning">No se encontraron archivos</h3></c:if>
 
     <c:if test="${!empty img}">
-        <div id="imgprev" class="well"  >
+        <div id="imgprev" class="well" style="display: none" >
             ${img}
-            <span class="label label-info">${tipo} </span>
+            <!--<br/>-->
+            <!--<span class="label label-info">${tipo} </span>-->
+            <br/>
+            <br/>
+            <button class="btn btn-danger" onclick="salirAnimationImg()"><span class="glyphicon glyphicon-remove" title="cerrar" aria-hidden="true">  </span></button>
         </div>
     </c:if>
 </table>

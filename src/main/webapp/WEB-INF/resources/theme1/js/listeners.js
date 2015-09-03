@@ -89,7 +89,6 @@ function formularioMultipart() {
 
 
 function animationImg() {
-
     var div = $("#imgprev");
 //    div.dialog({
 //        closeOnEscape: true, resizable: true,
@@ -99,7 +98,12 @@ function animationImg() {
 //        }
 //
 //    });
-div.show()
+div.show('highlight',{},500)
 
-
+}
+function salirAnimationImg(){
+    
+     var div = $("#imgprev");
+     div.hide('slide',{},500);
+    
 }
