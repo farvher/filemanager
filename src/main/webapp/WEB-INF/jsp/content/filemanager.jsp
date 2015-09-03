@@ -42,6 +42,8 @@
                             <td>
                                 <button type="button" class="btn btn-default btn-lg btn-info">
                                     <span class="glyphicon glyphicon-folder-open "   aria-hidden="true" ></span>
+                                    <span class="icon-bar "></span>
+                                    <span class="badge ">${fn:length(r.list())}</span> 
                                 </button>
                             </td>
                         </c:when>
@@ -57,7 +59,7 @@
                     <td class="text-primary" title="${r.path}">
                         <h3>
                             <span class="label label-info ">${r.name}</span>   
-                            <span class="badge">${fn:length(r.list())}</span>  
+                             
                         </h3>
 
                     </td>

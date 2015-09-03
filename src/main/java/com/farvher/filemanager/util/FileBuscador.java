@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Scope;
 @Component
 public class FileBuscador {
 
-    private final static int MAXIMO_RESULTADOS = 10000;
+    private final static int MAXIMO_RESULTADOS = 1000;
 
     public File[] encontrado;
 

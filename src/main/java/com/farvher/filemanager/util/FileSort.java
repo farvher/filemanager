@@ -110,7 +110,8 @@ public class FileSort {
         } catch (Exception e) {
             System.out.println("No se pudo convertir el archivo");
         }
-        String resultado = fileData.toString().length() >= 2000 ? fileData.toString().substring(0, 1900) + " ...  " : fileData.toString();
+        String msjWarning = "<span class='label label-warning'>"+fileData.toString().length()+" caracteres </span>";
+        String resultado = fileData.toString().length() >= 2000 ? fileData.toString().substring(0, 1900) + " ...  "+ msjWarning : fileData.toString();
         String nombre = "<h2>" + new File(filePath).getName() + "</h2>";
 
         return nombre + resultado;

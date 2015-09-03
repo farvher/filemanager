@@ -43,7 +43,7 @@ public class HtmlUtil {
                 System.arraycopy(ba, 0, baTmp, imageBytes.length, ba.length);
                 imageBytes = baTmp;
             }
-            img = "<img  class='img-responsive' src='data:image/png;base64," + DatatypeConverter.printBase64Binary(imageBytes) + "'>";
+            img = "<img  class='img-responsive img-rounded img-thumbnail' src='data:image/png;base64," + DatatypeConverter.printBase64Binary(imageBytes) + "'>";
 
         } catch (Exception e) {
             System.out.println("No se pudo procesar la imagen " + e.getMessage());

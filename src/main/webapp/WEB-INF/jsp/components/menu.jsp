@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<nav class="navbar navbar-default navbar-static-top navbar-inverse">
+<nav class="navbar navbar-default navbar-static-top navbar-inverse ">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -32,7 +32,7 @@
                 <input type="submit" class="btn btn-default" value="Buscar">
             </form>
 
-                <form class="navbar-form">
+            <form class="navbar-form">
                 <button class="btn  btn-default" id="falseinput"> <span class="glyphicon glyphicon-upload"></span></button>
                 <button class="btn  btn-success" id="cargando" style="display: none">
                     <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate">
@@ -66,4 +66,3 @@
         to { transform: scale(1) rotate(360deg);}
     }
 </style>
-
