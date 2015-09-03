@@ -9,8 +9,9 @@ function itemLIstener() {
         var ruta = this.cells[1].title//toma la segunda columna de la fila escogida 
         var url = path + "/buscar/";
         var rendered = $("#manejador");
-        AjaxGenericHTML(url, rendered, {ruta: ruta})
+        AjaxGenericHTML(url, rendered, {ruta: ruta},this)
         updateBuscador(ruta);
+        
 
     });
 

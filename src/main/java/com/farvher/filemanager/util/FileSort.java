@@ -58,23 +58,23 @@ public class FileSort {
         return archivos;
     }
 
-    public static File[] orderByTypeDesc(File[] archivos) {
-
-        Arrays.sort(archivos, new Comparator<File>() {
-            public int compare(File a, File b) {
-                int com = 0;
-                try {
-                    String typeA = Files.probeContentType(Paths.get(a.getAbsolutePath()));
-                    String typeB = Files.probeContentType(Paths.get(b.getAbsolutePath()));
-                    com = typeA.compareTo(typeB);
-                } catch (IOException ex) {
-                }
-
-                return com;
-            }
-        });
-        return archivos;
-    }
+//    public static File[] orderByTypeDesc(File[] archivos) {
+//
+//        Arrays.sort(archivos, new Comparator<File>() {
+//            public int compare(File a, File b) {
+//                int com = 0;
+//                try {
+//                    String typeA = Files.probeContentType(Paths.get(a.getAbsolutePath()));
+//                    String typeB = Files.probeContentType(Paths.get(b.getAbsolutePath()));
+//                    com = typeA.compareTo(typeB);
+//                } catch (IOException ex) {
+//                }
+//
+//                return com;
+//            }
+//        });
+//        return archivos;
+//    }
 
     public static String getFileType(File f) {
 
@@ -110,9 +110,12 @@ public class FileSort {
         } catch (Exception e) {
             System.out.println("No se pudo convertir el archivo");
         }
-        String resultado = fileData.toString().length()>=2000 ? fileData.toString().substring(0, 1900) + " ...  " :fileData.toString();
+        String resultado = fileData.toString().length() >= 2000 ? fileData.toString().substring(0, 1900) + " ...  " : fileData.toString();
+        String nombre = "<h2>" + new File(filePath).getName() + "</h2>";
 
-        return resultado;
+        return nombre + resultado;
     }
+    
+    
 
 }

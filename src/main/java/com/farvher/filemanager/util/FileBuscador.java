@@ -19,31 +19,34 @@ import org.springframework.context.annotation.Scope;
 @Component
 public class FileBuscador {
 
-    public  File[] encontrado ;
+    private final static int MAXIMO_RESULTADOS = 10000;
+
+    public File[] encontrado;
 
     public File[] buscarPorPalabra(File dir, final String palabra) {
         if (dir.isDirectory() && !dir.isHidden()) {
             try {
 
-            FilenameFilter filter = new FilenameFilter() {
-                public boolean accept(File dir, String name) {
-                    return name.contains(palabra);
-                }
-            };
-            File[] children = dir.listFiles(filter);
-           
-            
-            
-            encontrado = (File[]) ArrayUtils.addAll(children, encontrado);
-            System.out.println("buscando en " + dir.getName() + "---" + encontrado.length);
+                FilenameFilter filter = new FilenameFilter() {
+                    public boolean accept(File dir, String name) {
+                        return name.contains(palabra);
+                    }
+                };
+                File[] children = dir.listFiles(filter);
 
-            String[] childrenstring = dir.list();
-            for (int i = 0; i < childrenstring.length; i++) {
-                File temfile = new File(dir, childrenstring[i]);
-              encontrado =   buscarPorPalabra(temfile, palabra);
-            }
-            }catch(Exception e){
-            e.getMessage();
+                encontrado = (File[]) ArrayUtils.addAll(children, encontrado);
+                System.out.println("buscando en " + dir.getName() + "---" + encontrado.length);
+
+                String[] childrenstring = dir.list();
+                for (int i = 0; i < childrenstring.length; i++) {
+                    File temfile = new File(dir, childrenstring[i]);
+                    encontrado = buscarPorPalabra(temfile, palabra);
+                    if(encontrado.length >=MAXIMO_RESULTADOS){
+                    break;
+                    }
+                }
+            } catch (Exception e) {
+                e.getMessage();
             }
         }
         return encontrado;

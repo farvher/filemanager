@@ -17,7 +17,7 @@ function AjaxGenericHTML(url, div, param) {
         data: param,
         success: function (data, textStatus, jqXHR) {
             $(div).html(data);
-           
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert('ha ocurrido un error' + jqXHR + " - " + textStatus + " - " + errorThrown);

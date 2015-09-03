@@ -39,8 +39,6 @@
                     </span>
                 </button>
             </form>
-
-
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 

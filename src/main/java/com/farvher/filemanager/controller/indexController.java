@@ -38,6 +38,8 @@ public class indexController {
     @Autowired
     FIleManager filemanager;
 
+    File[] filesFinded;
+
     /*MAPEO INICIO
      @autor Farith Sanmiguel
      en la pagina de inicio de la aplicacion lista
@@ -49,7 +51,6 @@ public class indexController {
     public ModelAndView getIndex(ModelAndView model) {
         String curDir = System.getProperty("user.home");
         File[] tempFolder = new File(curDir).listFiles();
-        tempFolder = FileSort.orderByTypeAsc(tempFolder);
 
         model.addObject("root", tempFolder);
         model.addObject("navegador", htmlUtil.getButtonsRuta(tempFolder[0].getParentFile()));
@@ -71,12 +72,12 @@ public class indexController {
         File tempFile = new File(ruta);
         File[] filesFinded = filemanager.getFolder(ruta);
         if (filesFinded != null) {
-            filesFinded = FileSort.orderByTypeAsc(filesFinded);
             model.addObject("root", filesFinded);
         }
         model.addObject("navegador", htmlUtil.getButtonsRuta(tempFile));
         model.addObject("ubicado", tempFile.getPath());
-
+        
+        /*FILE ES UN ARCHIVO Y NO UN DIRECTORIO*/
         if (!tempFile.isDirectory()) {
             String tiPoArchivo = FileSort.getFileType(tempFile);
             if (tiPoArchivo.contains("image")) {
@@ -85,8 +86,8 @@ public class indexController {
                 model.addObject("img", FileSort.readFileAsString(tempFile.getAbsolutePath()));
             }
             model.addObject("tipo", tiPoArchivo);
+            model.addObject("ubicado", tempFile.getParent());
         }
-
         model.setViewName("content/filemanager");
         return model;
     }
@@ -100,10 +101,9 @@ public class indexController {
     public ModelAndView getContentAjaxFiltro(@RequestParam String palabra, @RequestParam String buscardesde, ModelAndView model) {
         FileBuscador searcher = new FileBuscador();
         //   String buscardesde = System.getProperty("user.home");
-        File[] filesFinded = searcher.buscarPorPalabra(new File(buscardesde), palabra);
+        filesFinded = searcher.buscarPorPalabra(new File(buscardesde), palabra);
 
         if (filesFinded != null) {
-            filesFinded = FileSort.orderByTypeAsc(filesFinded);
             model.addObject("root", filesFinded);
         }
         model.addObject("ubicado", buscardesde);

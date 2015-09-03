@@ -87,7 +87,7 @@
     <c:if test="${!empty img}">
         <div id="imgprev" class="well"  >
             ${img}
-            <font color ="white" >${tipo}</font> 
+            <span class="label label-info">${tipo} </span>
         </div>
     </c:if>
 </table>
