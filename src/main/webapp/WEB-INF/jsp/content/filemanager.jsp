@@ -59,7 +59,7 @@
                     <td class="text-primary" title="${r.path}">
                         <h3>
                             <span class="label label-info ">${r.name}</span>   
-                             
+
                         </h3>
 
                     </td>
@@ -88,7 +88,7 @@
 
     <c:if test="${!empty img}">
         <div id="imgprev" class="well" style="display: none" >
-            ${img}
+                ${img}
             <!--<br/>-->
             <!--<span class="label label-info">${tipo} </span>-->
             <br/>
@@ -97,4 +97,4 @@
         </div>
     </c:if>
 </table>
-    
+

@@ -41,8 +41,8 @@ public class FileBuscador {
                 for (int i = 0; i < childrenstring.length; i++) {
                     File temfile = new File(dir, childrenstring[i]);
                     encontrado = buscarPorPalabra(temfile, palabra);
-                    if(encontrado.length >=MAXIMO_RESULTADOS){
-                    break;
+                    if (encontrado.length >= MAXIMO_RESULTADOS) {
+                        break;
                     }
                 }
             } catch (Exception e) {
