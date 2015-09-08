@@ -3,7 +3,7 @@
 .navbar-inverse{background-color:crimson;border-color:crimson}.navbar-inverse 
 .navbar-collapse,.navbar-inverse
 .navbar-form,.navbar-inverse .navbar-toggle{border-color:#fff4c8}
-.navbar-inverse .navbar-brand{color:#fff4c8}
+.navbar-inverse .navbar-brand{color:#fff}
 .navbar-inverse .navbar-brand:focus,.navbar-inverse .navbar-brand:hover{color:#fff;background-color:transparent}
 .navbar-inverse .navbar-text{color:#fff}.navbar-inverse .navbar-nav>li>a{color:#fff;font-weight:400}
 .navbar-inverse .navbar-nav>li>a:focus,.navbar-inverse .navbar-nav>li>a:hover{color:#fff4c8;background-color:transparent}

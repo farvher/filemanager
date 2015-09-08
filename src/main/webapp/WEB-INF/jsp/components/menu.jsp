@@ -16,8 +16,8 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand " href="<%=request.getContextPath().toString()%>">
-                <img  class="img-rounded" src="<%=request.getContextPath().toString()%>/resources/img/icono.png" style="width: 80px"/>
-          
+                <!--<img  class="img-rounded" src="<%=request.getContextPath().toString()%>/resources/img/icono.png" style="width: 80px"/>-->
+          ShareFiler
             </a>
         </div>
 
@@ -29,17 +29,17 @@
             </ul>
             <form class="navbar-form navbar-left" role="search" onsubmit="return busquedaBasicaURL(document.getElementById('busqueda').value, document.getElementById('ubicado').value)" method="GET"  >
                 <div class="form-group">
-                    <input type="text" class="form-control " id="busqueda" name="busqueda" placeholder="${ubicado}">
+                    <input type="text" class="form-control " id="busqueda" name="busqueda" placeholder="Buscar ...">
                 </div>
                 <input type="submit" class="btn btn-default" value="Buscar">
             </form>
 
             <form class="navbar-form">
-                <button class="btn  btn-default" id="falseinput"> <span class="glyphicon glyphicon-upload"></span></button>
-                <button class="btn  btn-success" id="cargando" style="display: none">
+                <a class="btn  btn-default" id="falseinput"> <span class="glyphicon glyphicon-upload"></span></a>
+                <a class="btn  btn-success" id="cargando" style="display: none">
                     <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate">
                     </span>
-                </button>
+                </a>
             </form>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

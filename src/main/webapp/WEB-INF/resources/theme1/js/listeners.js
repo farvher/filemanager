@@ -51,7 +51,7 @@ $(document).ready(function () {
     $("#busqueda").focus();
     itemLIstener();
     animationImg();
-    formularioMultipart();
+    
 
 });
 
@@ -59,6 +59,7 @@ $(document).ajaxComplete(function () {
 
     itemLIstener();
     animationImg();
+
 })
 $(document).on("keyup", function () {
     $("#busqueda").focus();
@@ -70,7 +71,7 @@ function replaceAll(text, busca, reemplaza) {
         text = text.toString().replace(busca, reemplaza);
     return text;
 }
-function formularioMultipart() {
+
 
     $('#falseinput').click(function () {
         $("#fileinput").click();
@@ -83,7 +84,7 @@ function formularioMultipart() {
 
     })
 
-}
+
 
 function animationImg() {
     var div = $("#imgprev");

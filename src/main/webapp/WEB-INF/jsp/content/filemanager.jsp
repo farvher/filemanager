@@ -21,7 +21,7 @@
 <input type="hidden" id="ubicado" value="${ubicado}">
 
 
-<table class="table table-responsive table-bordered table-hover table-striped" >
+<table class="table table-responsive  table-hover table-striped" >
     <thead>
         <tr>
             <th>Dir/File</th>
