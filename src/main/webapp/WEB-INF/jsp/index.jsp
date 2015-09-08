@@ -13,6 +13,7 @@
 
         <!-- Bootstrap -->
         <link href="<%=request.getContextPath().toString() %>/resources/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<%=request.getContextPath().toString() %>/resources/css/custom.css" rel="stylesheet">
         <link href="//code.jquery.com/ui/1.11.4/themes/ui-darkness/jquery-ui.css" rel="stylesheet">
         
       

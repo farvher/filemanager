@@ -1,0 +1,17 @@
+
+.navbar-brand{padding:10px 15px;background-color:crimson}
+.navbar-inverse{background-color:crimson;border-color:crimson}.navbar-inverse 
+.navbar-collapse,.navbar-inverse
+.navbar-form,.navbar-inverse .navbar-toggle{border-color:#fff4c8}
+.navbar-inverse .navbar-brand{color:#fff4c8}
+.navbar-inverse .navbar-brand:focus,.navbar-inverse .navbar-brand:hover{color:#fff;background-color:transparent}
+.navbar-inverse .navbar-text{color:#fff}.navbar-inverse .navbar-nav>li>a{color:#fff;font-weight:400}
+.navbar-inverse .navbar-nav>li>a:focus,.navbar-inverse .navbar-nav>li>a:hover{color:#fff4c8;background-color:transparent}
+.navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.active>a:focus,
+.navbar-inverse .navbar-nav>.active>a:hover{color:#fff;background-color:#fff4c8}
+.navbar-inverse .navbar-nav>.disabled>a,.navbar-inverse .navbar-nav>.disabled>a:focus,
+.navbar-inverse .navbar-nav>.disabled>a:hover{color:#efe8ce;background-color:transparent}
+.navbar-inverse .navbar-toggle:focus,.navbar-inverse .navbar-toggle:hover{background-color:#f90}
+.navbar-inverse .navbar-toggle .icon-bar{background-color:#fff4c8}.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:focus,.navbar-inverse .navbar-nav>.open>a:hover{color:#fff4c8;background-color:#f90}
+.navbar-inverse .navbar-nav .open .dropdown-menu .dropdown-header{font-size:1.3em;color:#000;text-align:left;padding-left:0;margin-left:0}
