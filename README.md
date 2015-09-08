@@ -11,8 +11,7 @@ requerimientos para implementacion
 - java 7 o superior
 - servidor glassfish o tomcat
 - construccion con maven (mvn clean install)
-- navegadores "todos" (IE > 7)
--
+- navegadores todos (IE > 7)
 
 
 
