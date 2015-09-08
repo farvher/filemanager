@@ -6,7 +6,7 @@
 var path = document.location.pathname;
 function itemLIstener() {
     $(".items").on("click", function () {
-        var ruta = this.cells[1].title//toma la segunda columna de la fila escogida 
+        var ruta = this.title//toma la segunda columna de la fila escogida 
         var url = path + "/buscar/";
         var rendered = $("#manejador");
         AjaxGenericHTML(url, rendered, {ruta: ruta}, this)
@@ -98,3 +98,4 @@ function salirAnimationImg() {
     div.hide('slide', {}, 500);
 
 }
+

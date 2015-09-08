@@ -15,8 +15,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<%=request.getContextPath().toString()%>">FileManager</a>
-
+            <a class="navbar-brand " href="<%=request.getContextPath().toString()%>">
+                <img  class="img-rounded" src="<%=request.getContextPath().toString()%>/resources/img/icono.png" style="width: 80px"/>
+          
+            </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -66,3 +68,7 @@
         to { transform: scale(1) rotate(360deg);}
     }
 </style>
+<br/>
+<br/>
+<br/>
+<br/>

@@ -36,27 +36,26 @@
     <tbody>
         <c:forEach  var="r" items="${root}"  >
             <c:if test="${!r.isHidden()}">
-                <tr class="items" style="cursor: pointer"  >
+                <tr  style="cursor: pointer"  >
                     <c:choose>
                         <c:when test="${r.isDirectory()}">
                             <td>
-                                <button type="button" class="btn btn-default btn-lg btn-info">
+                                <a type="button" class="btn btn-default btn-lg btn-info items"  title="${r.path}">
                                     <span class="glyphicon glyphicon-folder-open "   aria-hidden="true" ></span>
-                                    <span class="icon-bar "></span>
                                     <span class="badge ">${fn:length(r.list())}</span> 
-                                </button>
+                                </a>
                             </td>
                         </c:when>
                         <c:otherwise>
                             <td class=""> 
-                                <button type="button" class="btn btn-default btn-lg btn-warning">
+                                <a type="button" class="btn btn-default btn-lg btn-warning items" class="items" title="${r.path}">
                                     <span class="glyphicon glyphicon-file  " aria-hidden="true"></span>
-                                </button>
+                                </a>
                             </td>
                         </c:otherwise>
                     </c:choose>
 
-                    <td class="text-primary" title="${r.path}">
+                    <td class="text-primary items" title="${r.path}">
                         <h3>
                             <span class="label label-info ">${r.name}</span>   
 
@@ -68,9 +67,9 @@
 
                     <td>
                         <c:if test="${!r.isDirectory()}">
-                            <button type="button" class="btn btn-default btn-lg btn-warning">
+                            <a type="button" class="btn btn-default btn-lg btn-warning" target="_blank" href="/filemanager/download?file_name=${r.path}" >
                                 <span class="glyphicon glyphicon-download" aria-hidden="true"></span> 
-                            </button>
+                            </a>
                         </c:if>
                     </td>
                     <td>
@@ -84,7 +83,7 @@
             </c:if>
         </c:forEach> 
     </tbody>
-    <c:if test="${empty root}"><h3 class="alert-warning">No se encontraron archivos</h3></c:if>
+    <c:if test="${empty root}"><h3 class="alert alert-warning">No se encontraron archivos</h3></c:if>
 
     <c:if test="${!empty img}">
         <div id="imgprev" class="well" style="display: none" >

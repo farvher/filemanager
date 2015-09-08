@@ -9,14 +9,18 @@ import com.farvher.filemanager.domain.FIleManager;
 import com.farvher.filemanager.util.FileBuscador;
 import com.farvher.filemanager.util.HtmlUtil;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.regex.Pattern;
-import javax.servlet.annotation.MultipartConfig;
+import java.nio.file.Files;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +33,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class MultipartController {
+
+    private static final int BUFFER_SIZE = 4096;
 
     @Autowired
     HtmlUtil htmlUtil;
@@ -47,7 +53,7 @@ public class MultipartController {
             @RequestParam("file") MultipartFile file, ModelAndView model) throws IOException {
         try {
 
-            String separador =File.separator;
+            String separador = File.separator;
             String nameFile = file.getOriginalFilename();
             System.out.println("Archivo cargado en " + ruta + separador + nameFile);
             InputStream input = file.getInputStream();
@@ -63,6 +69,37 @@ public class MultipartController {
         } finally {
         }
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public void getFile(@RequestParam("file_name") String fileName,
+            HttpServletResponse response) {
+        try {
+            // get your file as InputStream
+            File archivo = new File(fileName);
+            InputStream is = new FileInputStream(archivo);
+            // copy it to response's OutputStream
+            org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + archivo.getName() + "\"");
+            response.flushBuffer();
+        } catch (Exception ex) {
+            System.out.println("error descargando" + ex.getMessage());
+        }
+
+    }
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public void removeFile(@RequestParam("file_name") String fileName,
+            HttpServletResponse response) {
+        try {
+            // get your file as InputStream
+            File archivo = new File(fileName);
+            archivo.delete();
+            InputStream is = new FileInputStream(archivo);
+            // copy it to response's OutputStream
+        } catch (Exception ex) {
+            System.out.println("error borrando" + ex.getMessage());
+        }
+
     }
 
 }
