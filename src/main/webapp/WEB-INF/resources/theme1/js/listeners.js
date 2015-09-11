@@ -11,8 +11,6 @@ function itemLIstener() {
         var rendered = $("#manejador");
         AjaxGenericHTML(url, rendered, {ruta: ruta}, this)
         updateBuscador(ruta);
-
-
     });
 
 }
@@ -51,7 +49,7 @@ $(document).ready(function () {
     $("#busqueda").focus();
     itemLIstener();
     animationImg();
-    
+
 
 });
 
@@ -59,6 +57,7 @@ $(document).ajaxComplete(function () {
 
     itemLIstener();
     animationImg();
+    $("html, body").animate({scrollTop: 0}, "slow");
 
 })
 $(document).on("keyup", function () {
@@ -73,16 +72,16 @@ function replaceAll(text, busca, reemplaza) {
 }
 
 
-    $('#falseinput').click(function () {
-        $("#fileinput").click();
-    });
-    $("#fileinput").change(function () {
-        var enviar = confirm("Desea cargar el archivo " + this.value)
-        if (enviar) {
-            $("#cargar").submit();
-        }
+$('#falseinput').click(function () {
+    $("#fileinput").click();
+});
+$("#fileinput").change(function () {
+    var enviar = confirm("Desea cargar el archivo " + this.value)
+    if (enviar) {
+        $("#cargar").submit();
+    }
 
-    })
+})
 
 
 

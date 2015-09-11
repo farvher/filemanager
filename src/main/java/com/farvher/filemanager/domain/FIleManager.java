@@ -32,23 +32,7 @@ public interface FIleManager {
     public File  getParent(File file);
     
     
-    public File searchFile(File file);
-    
-    
-    public File searchFile(String name);
-    
-    public File searchFile(String name , String type );
-    
-    
-    public File searchFile(String name, String type , File parent);
-    
-    
-    public File searchFileByType(String Type);
-    
-    
-    
-    public File searchFileByLength(String length);
-    
+
      
     
 }

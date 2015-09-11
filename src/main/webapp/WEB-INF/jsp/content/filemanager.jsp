@@ -9,7 +9,8 @@
 <ol class="breadcrumb">
     <li><a href="<%=request.getContextPath().toString()%>"><span class="glyphicon glyphicon-hdd"></span></a></li>
             <c:forEach var="nav" items="${navegador}" >
-        <li ><a href="#"  onclick="navegacionBreadCrum(${ubicado})"  title=" ${ubicado} - ${nav}"  >${nav}</a></li>
+                <c:set value="${fn:substring(ubicado, 0, (fn:indexOf(ubicado, nav)) + fn:length(nav))}" var="ubi"/>
+        <li ><a href="#"  onclick="navegacionBreadCrum('${ubi}')"  title="${ubi}"  >${nav}</a></li>
         </c:forEach>
 
 </ol>
@@ -65,16 +66,16 @@
                     ${r.path}
                 </span>
             </div>
-                    <c:if test="${!r.isDirectory()}">
-                        <a type="button" class="btn btn-default btn-lg btn-success" target="_blank" href="/filemanager/download?file_name=${r.path}"  >
-                            <span class="glyphicon glyphicon-download" aria-hidden="true"></span> 
-                        </a>
-                    </c:if>
-                    <c:if test="${!r.isDirectory()}">
-                        <a type="button" class="btn btn-default btn-lg btn-danger " >
-                            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> 
-                        </a>
-                    </c:if>
+            <c:if test="${!r.isDirectory()}">
+                <a type="button" class="btn btn-default btn-lg btn-success" target="_blank" href="/filemanager/download?file_name=${r.path}"  >
+                    <span class="glyphicon glyphicon-download" aria-hidden="true"></span> 
+                </a>
+            </c:if>
+            <c:if test="${!r.isDirectory()}">
+                <a type="button" class="btn btn-default btn-lg btn-danger " >
+                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> 
+                </a>
+            </c:if>
 
         </div>
     </c:if>
