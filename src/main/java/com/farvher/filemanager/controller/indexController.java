@@ -49,6 +49,7 @@ public class indexController {
         model.addObject("root", tempFolder);
         model.addObject("navegador", htmlUtil.getButtonsRuta(tempFolder[0].getParentFile()));
         model.addObject("ubicado", tempFolder[0].getParent());
+        model.addObject("cantidad", tempFolder.length);
         model.setViewName("index");
         return model;
     }
@@ -67,10 +68,12 @@ public class indexController {
         File[] filesFinded = filemanager.getFolder(ruta);
         if (filesFinded != null) {
             model.addObject("root", filesFinded);
+            model.addObject("cantidad", filesFinded.length);
         }
         model.addObject("navegador", htmlUtil.getButtonsRuta(tempFile));
         model.addObject("ubicado", tempFile.getPath());
-        
+
+
         /*FILE ES UN ARCHIVO Y NO UN DIRECTORIO*/
         if (!tempFile.isDirectory()) {
             String tiPoArchivo = FileSort.getFileType(tempFile);
@@ -99,6 +102,7 @@ public class indexController {
 
         if (filesFinded != null) {
             model.addObject("root", filesFinded);
+            model.addObject("cantidad", filesFinded.length);
         }
         model.addObject("ubicado", buscardesde);
         model.addObject("navegador", filesFinded.length + " resultados encontrados para '" + palabra + "'");

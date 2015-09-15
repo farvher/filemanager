@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Scope;
 @Component
 public class FileBuscador {
 
-    private final static int MAXIMO_RESULTADOS = 1000;
+    private final static int MAXIMO_RESULTADOS = 3000;
     private final static int MAXIMO_TOKENS = 10000;
     private static int token = 0;
 
@@ -43,7 +43,7 @@ public class FileBuscador {
                 for (int i = 0; i < childrenstring.length; i++) {
                     File temfile = new File(dir, childrenstring[i]);
                     encontrado = buscarPorPalabra(temfile, palabra);
-                    if (token >= MAXIMO_TOKENS) {
+                    if (encontrado.length >= MAXIMO_RESULTADOS) {
                         break;
                     }
                 }
