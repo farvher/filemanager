@@ -8,9 +8,12 @@ package com.farvher.filemanager.util;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.net.URL;
 import java.util.regex.Pattern;
+
 import javax.xml.bind.DatatypeConverter;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,22 +22,23 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class HtmlUtil {
+	
+	private final Logger logger = LoggerFactory.getLogger(HtmlUtil.class);
+	
 
     public String[] getButtonsRuta(File file) {
 
         String ruta = file.getAbsolutePath();
         ruta = ruta.substring(1, ruta.length());
-        String[] rutaSplit = ruta.split(Pattern.quote(File.separator));
+        return  ruta.split(Pattern.quote(File.separator));
 
-        return rutaSplit;
 
     }
 
     public String processImgHtml(String ruta) {
         String img = "";
-        try {
-            File imgFile = new File(ruta);
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(imgFile));
+        File imgFile = new File(ruta);
+        try(BufferedInputStream bis = new BufferedInputStream(new FileInputStream(imgFile))) {
             byte[] imageBytes = new byte[0];
             for (byte[] ba = new byte[bis.available()];
                     bis.read(ba) != -1;) {
@@ -46,7 +50,7 @@ public class HtmlUtil {
             img = "<img  class='img-responsive img-rounded img-thumbnail' src='data:image/png;base64," + DatatypeConverter.printBase64Binary(imageBytes) + "'>";
 
         } catch (Exception e) {
-            System.out.println("No se pudo procesar la imagen " + e.getMessage());
+            logger.error("No se pudo procesar la imagen " + e);
         }
 
         return img;

@@ -7,10 +7,11 @@ package com.farvher.filemanager.util;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.Arrays;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.apache.commons.lang.ArrayUtils;
-import org.springframework.context.annotation.Scope;
 
 /**
  *
@@ -19,17 +20,18 @@ import org.springframework.context.annotation.Scope;
 @Component
 public class FileBuscador {
 
-    private final static int MAXIMO_RESULTADOS = 3000;
-    private final static int MAXIMO_TOKENS = 10000;
-    private static int token = 0;
+    private static final Logger logger = LoggerFactory.getLogger(FileBuscador.class);
+	
+    private static final int MAXIMO_RESULTADOS = 3000;
+    private static final int MAXIMO_TOKENS = 10000;
 
     public File[] encontrado;
 
     public File[] buscarPorPalabra(File dir, final String palabra) {
         if (dir.isDirectory() && !dir.isHidden()) {
-            token++;
             try {
                 FilenameFilter filter = new FilenameFilter() {
+                	@Override
                     public boolean accept(File dir, String name) {
                         return name.contains(palabra);
                     }
@@ -37,7 +39,7 @@ public class FileBuscador {
                 File[] children = dir.listFiles(filter);
 
                 encontrado = (File[]) ArrayUtils.addAll(children, encontrado);
-                System.out.println("buscando '"+palabra+"' en " + dir.getName()+ "-- found : " + encontrado.length +" -- tok :"+token);
+                logger.error("buscando '"+palabra+"' en " + dir.getName()+ "-- found : " + encontrado.length );
 
                 String[] childrenstring = dir.list();
                 for (int i = 0; i < childrenstring.length; i++) {
@@ -48,7 +50,7 @@ public class FileBuscador {
                     }
                 }
             } catch (Exception e) {
-                e.getMessage();
+                logger.error("error buscando "+e);
             }
         }
         return encontrado;

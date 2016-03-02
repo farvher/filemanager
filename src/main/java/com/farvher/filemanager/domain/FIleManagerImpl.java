@@ -6,11 +6,8 @@
 package com.farvher.filemanager.domain;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -31,22 +28,19 @@ public class FIleManagerImpl implements FIleManager {
 
     @Override
     public File[] getRoot() {
-        File[] roots = File.listRoots();//lista todos los directorios principales / - c:// - d:// 
-        return roots;
+        return File.listRoots();
     }
 
     @Override
     public File[] getRootFolder() {
         File[] files = this.getRoot();
-        File[] folders = files[INDEXDIR].listFiles();
-        return folders;
+        return files[INDEXDIR].listFiles();
 
     }
 
     @Override
     public int getCantRoot() {
-        int cantidadDeRoots = this.getRoot().length;
-        return cantidadDeRoots;
+        return this.getRoot().length;
 
     }
 

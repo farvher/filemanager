@@ -7,18 +7,14 @@
 
 
 <ol class="breadcrumb">
-    <li><a href="<%=request.getContextPath().toString()%>"><span class="glyphicon glyphicon-hdd"></span></a></li>
+    <li><a href="<%=request.getContextPath().toString()%>"><span class="glyphicon glyphicon-hdd" title="Directorio principal"></span></a></li>
             <c:forEach var="nav" items="${navegador}" >
                 <c:set value="${fn:substring(ubicado, 0, (fn:indexOf(ubicado, nav)) + fn:length(nav))}" var="ubi"/>
         <li ><a href="#"  onclick="navegacionBreadCrum('${ubi}')"  title="${ubi}"  >${nav}</a></li>
         </c:forEach>
 
 </ol>
-<!--<nav>
-    <ul class="pager">
-        <li><a href="#">Previous</a></li>
-    </ul>
-</nav>-->
+
 <input type="hidden" id="ubicado" value="${ubicado}">
 
 
@@ -37,23 +33,22 @@
 <c:forEach  var="r" items="${root}" varStatus="i" >
     <c:if test="${true}">
         <div class="well well-lg "   >
-
+            <!--icono de carpeta o archivo-->
             <c:choose>
                 <c:when test="${r.isDirectory()}">
-
                     <a type="button" class="btn btn-default btn-lg items"  title="${r.path}">
                         <span class="glyphicon glyphicon-folder-open "   aria-hidden="true" ></span>
                         <span class="badge ">${fn:length(r.list())}</span> 
                     </a>
-
                 </c:when>
                 <c:otherwise>
                     <a type="button" class="btn btn-default btn-lg items" class="items" title="${r.path}">
                         <span class="glyphicon glyphicon-file  " aria-hidden="true"></span>
                     </a>
-
                 </c:otherwise>
             </c:choose>
+            <!--fin de iconos-->
+            <!--panel detalle de resultado-->
             <div class="panel panel-collapse">
                 <div class="text-justify items " title="${r.path}" style="cursor: pointer">
                     <h2>
@@ -73,6 +68,7 @@
                     </a>
                 </c:if>
             </div>
+            <!--fin de panel-->
             <span class="glyphicon glyphicon-th "  > </span>  ${i.index+1} de ${cantidad}
             ${r.isHidden() ? "<br/><span class='label label-warning'>Oculto<span>":""}
         </div>

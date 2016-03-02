@@ -8,24 +8,24 @@ package com.farvher.filemanager.controller;
 import com.farvher.filemanager.domain.FIleManager;
 import com.farvher.filemanager.util.FileBuscador;
 import com.farvher.filemanager.util.HtmlUtil;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Files;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -34,7 +34,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MultipartController {
 
-    private static final int BUFFER_SIZE = 4096;
+    
+    private static final Logger logger = LoggerFactory.getLogger(MultipartController.class);
 
     @Autowired
     HtmlUtil htmlUtil;
@@ -46,18 +47,17 @@ public class MultipartController {
     FIleManager filemanager;
 
     @Autowired
-    indexController indexController;
+    IndexController indexController;
 
     @RequestMapping(value = "/form", method = RequestMethod.POST)
     public String handleFormUpload(@RequestParam("ruta") String ruta,
-            @RequestParam("file") MultipartFile file, ModelAndView model) throws IOException {
-        try {
-
-            String separador = File.separator;
-            String nameFile = file.getOriginalFilename();
-            System.out.println("Archivo cargado en " + ruta + separador + nameFile);
-            InputStream input = file.getInputStream();
-            OutputStream ouput = new FileOutputStream(ruta + separador + nameFile);
+            @RequestParam("file") MultipartFile file) throws IOException {
+    	
+    	 InputStream input = file.getInputStream();
+    	 String separador = File.separator;
+         String nameFile = file.getOriginalFilename();
+         logger.error("Archivo cargado en " + ruta + separador + nameFile);
+        try(OutputStream ouput = new FileOutputStream(ruta + separador + nameFile)) {
             int read = 0;
             byte[] bytes = new byte[1024];
             while ((read = input.read(bytes)) != -1) {
@@ -65,9 +65,8 @@ public class MultipartController {
             }
 
         } catch (Exception e) {
-            System.out.println("ha ocurrido un error cargando el archivo" + e.getMessage());
-        } finally {
-        }
+            logger.error("ha ocurrido un error cargando el archivo" + e);
+        } 
         return "redirect:/";
     }
 
@@ -75,29 +74,25 @@ public class MultipartController {
     public void getFile(@RequestParam("file_name") String fileName,
             HttpServletResponse response) {
         try {
-            // get your file as InputStream
             File archivo = new File(fileName);
             InputStream is = new FileInputStream(archivo);
-            // copy it to response's OutputStream
             org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
             response.setHeader("Content-Disposition", "attachment; filename=\"" + archivo.getName() + "\"");
             response.flushBuffer();
         } catch (Exception ex) {
-            System.out.println("error descargando" + ex.getMessage());
+            logger.error("error descargando" + ex);
         }
 
     }
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public void removeFile(@RequestParam("file_name") String fileName,
-            HttpServletResponse response) {
+    public void removeFile(@RequestParam("file_name") String fileName) {
         try {
             // get your file as InputStream
             File archivo = new File(fileName);
             archivo.delete();
-            InputStream is = new FileInputStream(archivo);
             // copy it to response's OutputStream
         } catch (Exception ex) {
-            System.out.println("error borrando" + ex.getMessage());
+            logger.error("error borrando" + ex);
         }
 
     }
