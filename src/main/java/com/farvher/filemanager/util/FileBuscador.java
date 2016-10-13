@@ -9,14 +9,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.BiPredicate;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
@@ -34,7 +28,7 @@ public class FileBuscador {
     private static final Logger logger = LoggerFactory.getLogger(FileBuscador.class);
     
     private static final int MAXIMO_RESULTADOS = 3000;
-    private static final int MAX_DEEP = 5;
+    private static final int MAX_DEEP = 20;
     
     public File[] encontrado;
     
@@ -71,8 +65,9 @@ public class FileBuscador {
         try {
             Stream<File> files = Files.find(Paths.get(dir.getPath()), 
                     MAX_DEEP, 
-                    (pathDir, fileAttrib) -> pathDir.toString().contains(palabra))
-                    .map((path) -> path.toFile());
+                    (pathDir, fileAttrib) -> !fileAttrib.isDirectory())
+                    .map((path) -> path.toFile())
+                    .filter(i -> i.getName().contains(palabra));
             return files.toArray(size -> new File[size]);
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(FileBuscador.class.getName()).log(Level.SEVERE, null, ex);

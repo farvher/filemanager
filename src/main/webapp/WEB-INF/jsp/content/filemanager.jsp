@@ -31,7 +31,7 @@
 
 
 <c:forEach  var="r" items="${root}" varStatus="i" >
-    <c:if test="${true}">
+    <c:if test="${!r.isHidden()}">
         <div class="col-md-4 "   >
             <div class="well well-sm">
             <!--icono de carpeta o archivo-->
@@ -52,19 +52,19 @@
             <!--panel detalle de resultado-->
             <div class="panel panel-collapse">
                 <div class="text-justify items" title="${r.path}" style="cursor: pointer">
-                    <h2>
+                    <h4>
                         ${r.name}
                         <br/>
                         <small> ${r.path}</small>
-                    </h2>
+                    </h4>
                 </div>
                 <c:if test="${!r.isDirectory()}">
-                    <a type="button" class="btn btn-default btn-lg btn-success " target="_blank" href="/filemanager/download?file_name=${r.path}"  >
+                    <a type="button" class="btn btn-default btn-sm btn-success " target="_blank" href="/filemanager/download?file_name=${r.path}"  >
                         <span class="glyphicon glyphicon-download" aria-hidden="true"></span> 
                     </a>
                 </c:if>
                 <c:if test="${!r.isDirectory()}">
-                    <a type="button" class="btn btn-default btn-lg btn-danger " >
+                    <a type="button" class="btn btn-default btn-sm btn-danger " >
                         <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> 
                     </a>
                 </c:if>
