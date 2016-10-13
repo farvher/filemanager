@@ -32,17 +32,18 @@
 
 <c:forEach  var="r" items="${root}" varStatus="i" >
     <c:if test="${true}">
-        <div class="well well-lg "   >
+        <div class="col-md-4 "   >
+            <div class="well well-sm">
             <!--icono de carpeta o archivo-->
             <c:choose>
                 <c:when test="${r.isDirectory()}">
-                    <a type="button" class="btn btn-default btn-lg items"  title="${r.path}">
+                    <a type="button" class="btn btn-default btn-sm  items"  title="${r.path}">
                         <span class="glyphicon glyphicon-folder-open "   aria-hidden="true" ></span>
                         <span class="badge ">${fn:length(r.list())}</span> 
                     </a>
                 </c:when>
                 <c:otherwise>
-                    <a type="button" class="btn btn-default btn-lg items" class="items" title="${r.path}">
+                    <a type="button" class="btn btn-default btn-sm  items" class="items" title="${r.path}">
                         <span class="glyphicon glyphicon-file  " aria-hidden="true"></span>
                     </a>
                 </c:otherwise>
@@ -50,7 +51,7 @@
             <!--fin de iconos-->
             <!--panel detalle de resultado-->
             <div class="panel panel-collapse">
-                <div class="text-justify items " title="${r.path}" style="cursor: pointer">
+                <div class="text-justify items" title="${r.path}" style="cursor: pointer">
                     <h2>
                         ${r.name}
                         <br/>
@@ -71,6 +72,7 @@
             <!--fin de panel-->
             <span class="glyphicon glyphicon-th "  > </span>  ${i.index+1} de ${cantidad}
             ${r.isHidden() ? "<br/><span class='label label-warning'>Oculto<span>":""}
+            </div>
         </div>
     </c:if>
 
