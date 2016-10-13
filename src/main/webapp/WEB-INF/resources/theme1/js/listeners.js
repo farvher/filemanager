@@ -7,7 +7,7 @@ var path = document.location.pathname;
 function itemLIstener() {
     $(".items").on("click", function () {
         var ruta = this.title//toma la segunda columna de la fila escogida 
-        var url = path + "/buscar/";
+        var url = "/buscar/";
         var rendered = $("#manejador");
         AjaxGenericHTML(url, rendered, {ruta: ruta}, this)
         updateBuscador(ruta);
@@ -16,7 +16,7 @@ function itemLIstener() {
 }
 
 function busquedaBasicaURL(busqueda, desde) {
-    var url = path + "/filtro/";
+    var url = "/filtro/";
     var rendered = $("#manejador");
     if (busqueda != "") {
         AjaxGenericHTML(url, rendered, {palabra: busqueda, buscardesde: desde})
@@ -27,7 +27,7 @@ function busquedaBasicaURL(busqueda, desde) {
 }
 
 function navegacionBreadCrum(ruta) {
-    var url = path + "/buscar/";
+    var url = "/buscar/";
     var rendered = $("#manejador");
     AjaxGenericHTML(url, rendered, {ruta: ruta})
 }

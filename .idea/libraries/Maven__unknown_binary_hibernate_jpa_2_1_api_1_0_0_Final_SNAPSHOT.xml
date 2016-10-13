@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: unknown.binary:hibernate-jpa-2.1-api-1.0.0.Final:SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/unknown/binary/hibernate-jpa-2.1-api-1.0.0.Final/SNAPSHOT/hibernate-jpa-2.1-api-1.0.0.Final-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/unknown/binary/hibernate-jpa-2.1-api-1.0.0.Final/SNAPSHOT/hibernate-jpa-2.1-api-1.0.0.Final-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/unknown/binary/hibernate-jpa-2.1-api-1.0.0.Final/SNAPSHOT/hibernate-jpa-2.1-api-1.0.0.Final-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
