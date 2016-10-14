@@ -51,8 +51,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="<%=request.getContextPath().toString()%>/resources/js/bootstrap.min.js"></script>
-        <script src="<%=request.getContextPath().toString()%>/resources/js/listeners.js" rel="stylesheet"></script>
-        <script src="<%=request.getContextPath().toString()%>/resources/js/ajax.js" rel="stylesheet"></script>
+        <script src="<%=request.getContextPath().toString()%>/resources/js/listeners.js" ></script>
+        <script src="<%=request.getContextPath().toString()%>/resources/js/ajax.js" ></script>
 
     </body>
 </html>

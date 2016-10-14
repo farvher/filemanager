@@ -11,7 +11,6 @@ import com.farvher.filemanager.util.FileSort;
 import com.farvher.filemanager.util.HtmlUtil;
 import java.io.File;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +36,9 @@ public class IndexController extends BaseController{
     
    
 
+    /**
+     * Controlador principal de FileManager
+     * @author farvher*/
     @RequestMapping(value = {"/", ""})
     public ModelAndView getIndex(ModelAndView model) {
         

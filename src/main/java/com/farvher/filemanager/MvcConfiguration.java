@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -49,11 +48,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
       registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/theme1/");
     }
     
-    @Bean
-    public MultipartResolver getMultipartResolver(){
-      MultipartResolver resolver = new org.springframework.web.multipart.commons.CommonsMultipartResolver();
-      return resolver;
-    }
+   
     
     
 }
