@@ -13,9 +13,7 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 @Configuration
 public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
 
-	@Autowired 
-	LogoutHandler logoutHandler;
-	
+
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
