@@ -16,8 +16,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-
-
 /**
  *
  * @author geotor
@@ -26,29 +24,27 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @ComponentScan
 @EnableAutoConfiguration
-public class MvcConfiguration extends WebMvcConfigurerAdapter{
-    
-    @Bean
-    public ViewResolver getViewResolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/jsp/");
-        resolver.setSuffix(".jsp");
-        return resolver;
-    }
+public class MvcConfiguration extends WebMvcConfigurerAdapter {
 
-   
-    @Override
-    public void configureDefaultServletHandling(
-            DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }  
-    
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-      registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/theme1/");
-    }
-    
-   
-    
-    
+
+	@Bean
+	public ViewResolver getViewResolver() {
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+		resolver.setPrefix("/WEB-INF/jsp/");
+		resolver.setSuffix(".jsp");
+		return resolver;
+	}
+
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/theme1/");
+	}
+
+
+
 }

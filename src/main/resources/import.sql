@@ -1,0 +1,3 @@
+--INSERT INTO roles values(1,"Admin");
+--INSERT INTO roles values(2,"Manager");
+--INSERT INTO roles values(3,"UserRole");
