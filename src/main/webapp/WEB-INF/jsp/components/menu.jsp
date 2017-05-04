@@ -23,25 +23,28 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li ><a href="#">Link </a></li>
-                <li><a href="#">Link</a></li>
-            </ul>
+<!--             <ul class="nav navbar-nav"> -->
+<!--                 <li ><a href="#">Link </a></li> -->
+<!--                 <li><a href="#">Link</a></li> -->
+<!--             </ul> -->
             <form class="navbar-form navbar-left" role="search" onsubmit="return busquedaBasicaURL(document.getElementById('busqueda').value, document.getElementById('ubicado').value)" method="GET"  >
                 <div class="form-group">
                     <input type="text" class="form-control " id="busqueda" name="busqueda" placeholder="Buscar ...">
                 </div>
                 <input type="submit" class="btn btn-default" value="Buscar">
+                 <a class="btn  btn-default" id="falseinput"> <span class="glyphicon glyphicon-upload"></span></a>
             </form>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a class="btn btn-xm" > <span id="cargando"
+						class="glyphicon glyphicon-refresh glyphicon-refresh-animate hidden">
+					</span>
+				</a></li>
+				<li><a href="#" onclick="document.forms['logoutForm'].submit()"><span
+						class="glyphicon glyphicon glyphicon-log-out">Salir</span></a></li>
 
-            <form class="navbar-form">
-                <a class="btn  btn-default" id="falseinput"> <span class="glyphicon glyphicon-upload"></span></a>
-                <a class="btn  btn-success" id="cargando" style="display: none">
-                    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate">
-                    </span>
-                </a>
-            </form>
-        </div><!-- /.navbar-collapse -->
+			</ul>
+
+		</div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 
 </nav>
@@ -50,7 +53,14 @@
 <form method="post" id="cargar" action="<%=request.getContextPath().toString()%>/form" enctype="multipart/form-data">
     <input type="hidden" name="ruta" id="namefile" value="${ubicado}"/>
     <input type="file" id="fileinput" name="file" style="display: none"/>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
+<!--Formulario escondido para desloguearse  -->
+ <c:if test="${pageContext.request.userPrincipal.name != null}">
+        <form id="logoutForm" method="POST" action="${contextPath}/logout">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+    </c:if>
 
 <style>
     .glyphicon-refresh-animate {
@@ -68,13 +78,7 @@
         to { transform: scale(1) rotate(360deg);}
     }
 </style>
- <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <form id="logoutForm" method="POST" action="${contextPath}/logout">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
-        <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
 
-    </c:if>
 <br/>
 <br/>
 <br/>

@@ -21,9 +21,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  * @author geotor
  */
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc
 @ComponentScan
-@EnableAutoConfiguration
+@EnableAutoConfiguration//spring supone que configuracion quieres basada en las dependencias
 public class MvcConfiguration extends WebMvcConfigurerAdapter {
 
 
