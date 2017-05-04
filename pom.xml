@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.farvher</groupId>
-	<artifactId>FileManager</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<artifactId>file-manager</artifactId>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>FileManager</name>
+	<name>file-manager</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
