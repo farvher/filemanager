@@ -14,7 +14,8 @@ public class BaseController {
 	public static final String FILEMANAGER_PATH = "content/filemanager"; 
 	public static final String ERROR = "error";
 	public static final String ERROR404_PATH = "error/404";
-	public static final String CURRENT_DIRECTORY = System.getProperty("user.home");
+	private final static String FOLDERAPP = "/files-manager/";
+	public static final String CURRENT_DIRECTORY = System.getProperty("user.home")+ FOLDERAPP;
 	
 	public BaseController() {
 		

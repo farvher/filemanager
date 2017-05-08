@@ -12,7 +12,9 @@ import com.farvher.filemanager.util.FileSort;
 import com.farvher.filemanager.util.HtmlUtil;
 import java.io.File;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,6 +39,9 @@ public class IndexController extends BaseController {
 	SecurityService secureService;
 
 	File[] filesFinded;
+	
+	@Value(value = "${my.secret}")
+	String secret ;
 
 	/**
 	 * Controlador principal de FileManager
@@ -44,66 +49,70 @@ public class IndexController extends BaseController {
 	 * @author farvher
 	 */
 	@RequestMapping(value = { "/", "" })
-	public ModelAndView getIndex(ModelAndView model) {
-		String currentUser = secureService.findLoggedInUsername();
-		File[] tempFolder = new File(CURRENT_DIRECTORY).listFiles();
-		model.addObject(ROOT, tempFolder);
-		model.addObject(NAVEGADOR, htmlUtil.getButtonsRuta(tempFolder[0].getParentFile()));
-		model.addObject(UBICADO, tempFolder[0].getParent());
-		model.addObject(CANTIDAD, tempFolder.length);
-		model.setViewName(INDEX);
-		return model;
+	public String getIndex(Model model) {
+		File homeFolder  = new File(CURRENT_DIRECTORY);
+		File[] tempFolder = homeFolder.listFiles();
+		model.addAttribute(ROOT, tempFolder);
+//		model.addAttribute("secret",secret);
+		model.addAttribute(NAVEGADOR, htmlUtil.getButtonsRuta(homeFolder));
+		model.addAttribute(UBICADO, homeFolder);
+		model.addAttribute(CANTIDAD, tempFolder.length);
+		return INDEX;
 	}
 
 	@RequestMapping(value = { "/buscar/", "/buscar" })
-	public ModelAndView getContentAjax(@RequestParam String ruta, ModelAndView model) {
+	public String getContentAjax(@RequestParam String ruta, Model model) {
 		File tempFile = new File(ruta);
 		File[] tempFilesFinded = filemanager.getFolder(ruta);
 		if (tempFilesFinded != null) {
-			model.addObject(ROOT, tempFilesFinded);
-			model.addObject(CANTIDAD, tempFilesFinded.length);
+			model.addAttribute(ROOT, tempFilesFinded);
+			model.addAttribute(CANTIDAD, tempFilesFinded.length);
 		}
-		model.addObject(NAVEGADOR, htmlUtil.getButtonsRuta(tempFile));
-		model.addObject(UBICADO, tempFile.getPath());
-
-		/* FILE ES UN ARCHIVO Y NO UN DIRECTORIO */
-		if (!tempFile.isDirectory()) {
-			String tiPoArchivo = FileSort.getFileType(tempFile);
-			if (tiPoArchivo.contains(IMAGE)) {
-				model.addObject(IMG, htmlUtil.processImgHtml(tempFile.getPath()));
-			} else {
-				model.addObject(IMG, FileSort.readFileAsString(tempFile.getAbsolutePath()));
-			}
-			model.addObject(TIPO, tiPoArchivo);
-			model.addObject(UBICADO, tempFile.getParent());
-		}
-		model.setViewName(FILEMANAGER_PATH);
-		return model;
+		model.addAttribute(NAVEGADOR, htmlUtil.getButtonsRuta(tempFile));
+		model.addAttribute(UBICADO, tempFile.getPath());
+		previewFile(tempFile,model);
+		return FILEMANAGER_PATH;
+		
 	}
 
 	@RequestMapping(value = { "/filtro/", "/filtro" })
-	public ModelAndView getContentAjaxFiltro(@RequestParam String palabra, @RequestParam String buscardesde,
-			ModelAndView model) {
+	public String getContentAjaxFiltro(@RequestParam String palabra, @RequestParam String buscardesde,
+			Model model) {
 		FileBuscador searcher = new FileBuscador();
 		filesFinded = searcher.buscarPorPalabra(new File(buscardesde), palabra);
 
 		if (filesFinded != null) {
-			model.addObject(ROOT, filesFinded);
-			model.addObject(CANTIDAD, filesFinded.length);
-			model.addObject(NAVEGADOR, filesFinded.length + " resultados encontrados para '" + palabra + "'");
+			model.addAttribute(ROOT, filesFinded);
+			model.addAttribute(CANTIDAD, filesFinded.length);
+			if (filesFinded.length==1){
+				previewFile(filesFinded[0],model);
+			}
+			model.addAttribute(NAVEGADOR, filesFinded.length + " resultados encontrados para '" + palabra + "'");
 		}
-		model.addObject(UBICADO, buscardesde);
+		model.addAttribute(UBICADO, buscardesde);
 
-		model.setViewName(FILEMANAGER_PATH);
+		return FILEMANAGER_PATH;
 
-		return model;
+	}
+
+	
+	private void previewFile(File previewFile ,Model model ){
+		if (!previewFile.isDirectory()) {
+			String tiPoArchivo = FileSort.getFileType(previewFile);
+			if (tiPoArchivo.contains(IMAGE)) {
+				model.addAttribute(IMG, htmlUtil.processImgHtml(previewFile.getPath()));
+			} else {
+				model.addAttribute(IMG, FileSort.readFileAsString(previewFile.getAbsolutePath()));
+			}
+			model.addAttribute(TIPO, tiPoArchivo);
+			model.addAttribute(UBICADO, previewFile.getParent());
+		}
 	}
 
 	@RequestMapping(value = { "/error/404", "error/404" })
-	public ModelAndView error404(String mensajeError) {
-		ModelAndView model = new ModelAndView(ERROR404_PATH);
-		model.addObject(ERROR, mensajeError);
-		return model;
+	public String error404(String mensajeError,Model model) {
+		model.addAttribute(ERROR, mensajeError);
+		return ERROR404_PATH;
 	}
 
 }
