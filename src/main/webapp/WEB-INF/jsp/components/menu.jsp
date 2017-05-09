@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<nav class="navbar navbar-default navbar-fixed-top navbar-inverse ">
+<nav class="navbar navbar-default navbar-fixed-top  ">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -77,10 +77,20 @@
         from { transform: scale(1) rotate(0deg);}
         to { transform: scale(1) rotate(360deg);}
     }
+    
+    .input-folder {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid black;
+}
 </style>
+
+
 
 <br/>
 <br/>
 <br/>
-<br/>
+  <jsp:include page="alerts.jsp"/>
+
 

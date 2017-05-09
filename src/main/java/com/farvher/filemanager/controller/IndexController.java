@@ -53,10 +53,10 @@ public class IndexController extends BaseController {
 		File homeFolder  = new File(CURRENT_DIRECTORY);
 		File[] tempFolder = homeFolder.listFiles();
 		model.addAttribute(ROOT, tempFolder);
-//		model.addAttribute("secret",secret);
 		model.addAttribute(NAVEGADOR, htmlUtil.getButtonsRuta(homeFolder));
 		model.addAttribute(UBICADO, homeFolder);
 		model.addAttribute(CANTIDAD, tempFolder.length);
+		
 		return INDEX;
 	}
 

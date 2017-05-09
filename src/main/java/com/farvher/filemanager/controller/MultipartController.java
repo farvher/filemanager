@@ -15,86 +15,111 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
  * @author geotor
  */
 @Controller
-public class MultipartController {
+public class MultipartController extends BaseController {
 
-    
-    private static final Logger logger = LoggerFactory.getLogger(MultipartController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MultipartController.class);
 
-    @Autowired
-    HtmlUtil htmlUtil;
+	@Autowired
+	HtmlUtil htmlUtil;
 
-    @Autowired
-    FileBuscador buscador;
+	@Autowired
+	FileBuscador buscador;
 
-    @Autowired
-    FIleManager filemanager;
+	@Autowired
+	FIleManager filemanager;
 
-    @Autowired
-    IndexController indexController;
+	@Autowired
+	IndexController indexController;
 
-    @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String handleFormUpload(@RequestParam("ruta") String ruta,
-            @RequestParam("file") MultipartFile file) throws IOException {
-    	
-    	 InputStream input = file.getInputStream();
-    	 String separador = File.separator;
-         String nameFile = file.getOriginalFilename();
-         logger.error("Archivo cargado en " + ruta + separador + nameFile);
-        try(OutputStream ouput = new FileOutputStream(ruta + separador + nameFile)) {
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            while ((read = input.read(bytes)) != -1) {
-                ouput.write(bytes, 0, read);
-            }
+	@RequestMapping(value = "/form", method = RequestMethod.POST)
+	public String handleFormUpload(@RequestParam("ruta") String ruta, @RequestParam("file") MultipartFile file,
+			RedirectAttributes redirectAttributes) {
+		String separador = File.separator;
+		String nameFile = file.getOriginalFilename();
+		logger.error("Archivo cargado en " + ruta + separador + nameFile);
+		try {
+			Files.copy(file.getInputStream(), Paths.get(ruta).resolve(file.getOriginalFilename()));
+			redirectAttributes.addFlashAttribute("success", file.getOriginalFilename() + " cargado correctamente");
+		} catch (Exception e) {
+			logger.error("ha ocurrido un error cargando el archivo" + e);
+			redirectAttributes.addFlashAttribute("danger", "No se pudo cargar el archivo");
+		}
+		return "redirect:/";
+	}
 
-        } catch (Exception e) {
-            logger.error("ha ocurrido un error cargando el archivo" + e);
-        } 
-        return "redirect:/";
-    }
+	@GetMapping("/download")
+	@ResponseBody
+	public ResponseEntity<Resource> serveFile(@RequestParam("file_name") String filename) {
+		try {
+			Path file = Paths.get(filename);
+			Resource resource = new UrlResource(file.toUri());
+			if (resource.exists() || resource.isReadable()) {
 
-    @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public void getFile(@RequestParam("file_name") String fileName,
-            HttpServletResponse response) {
-        try {
-            File archivo = new File(fileName);
-            InputStream is = new FileInputStream(archivo);
-            org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
-            response.setHeader("Content-Disposition", "attachment; filename=\"" + archivo.getName() + "\"");
-            response.flushBuffer();
-        } catch (Exception ex) {
-            logger.error("error descargando" + ex);
-        }
+				return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+						"attachment; filename=\"" + resource.getFilename() + "\"").body(resource);
 
-    }
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public void removeFile(@RequestParam("file_name") String fileName) {
-        try {
-            // get your file as InputStream
-            File archivo = new File(fileName);
-            archivo.delete();
-            // copy it to response's OutputStream
-        } catch (Exception ex) {
-            logger.error("error borrando" + ex);
-        }
+			}
+		} catch (Exception ex) {
+			logger.error("error cargando archivo", ex);
+		}
+		return null;
+	}
 
-    }
+	@PostMapping("/createFolder")
+	public String createFolder(@RequestParam String folder_name, Model model, RedirectAttributes redirectAttributes) {
+		Path confDir = Paths.get(folder_name);
+		try {
+			if (Files.notExists(confDir)) {
+				Files.createDirectory(Paths.get(folder_name));
+				redirectAttributes.addFlashAttribute("success", "Directorio creado");
+			} else {
+				redirectAttributes.addFlashAttribute("warning", "Directorio ya existe");
+			}
+		} catch (Exception ex) {
+			logger.error("error creando directorio", ex);
+			redirectAttributes.addFlashAttribute("danger", "No se pudo crear el directorio");
+		}
+		return indexController.getContentAjax(folder_name, model);
+	}
+
+	@PostMapping(value = "/delete")
+	public String removeFile(@RequestParam("file_name") String fileName,Model model) {
+		File archivo = new File(fileName);
+		String parent = archivo.getParent();
+		String msj = archivo.delete() ? "Borrado Correctamente" : "No se pudo Borrar";
+		return indexController.getContentAjax(parent, model);
+		
+	}
 
 }

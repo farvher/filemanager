@@ -16,7 +16,11 @@
 		<li><a href="#" onclick="navegacionBreadCrum('${ubi}')"
 			title="${ubi}">${nav}</a></li>
 	</c:forEach>
-
+	<li id="nameNewFolder">
+		<button class="btn btn-default btn-sm" id="newFolder" onclick="newFolder()">
+			<span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+		</button>
+	</li>
 </ol>
 
 <input type="hidden" id="ubicado" value="${ubicado}">
@@ -67,7 +71,8 @@
 					<div class="text-justify items" title="${r.path}"
 						style="cursor: pointer">
 						<h4>
-							${r.name} <br /> <small> ${r.path}</small>
+							${r.name} <br />
+							<%-- 							<small> ${r.path}</small> --%>
 						</h4>
 					</div>
 					<c:if test="${!r.isDirectory()}">
@@ -77,7 +82,8 @@
 						</a>
 					</c:if>
 					<c:if test="${!r.isDirectory()}">
-						<a type="button" class="btn  btn-xs btn-danger "> <span
+						<a type="button" class="btn  btn-xs btn-danger "
+							onclick="deleteFile('${r.path}')"> <span
 							class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
 						</a>
 					</c:if>
