@@ -5,6 +5,8 @@
  */
 package com.farvher.filemanager.controller;
 
+import com.farvher.filemanager.constants.MappingConstants;
+import com.farvher.filemanager.constants.MessagesConstants;
 import com.farvher.filemanager.domain.FIleManager;
 import com.farvher.filemanager.util.FileBuscador;
 import com.farvher.filemanager.util.HtmlUtil;
@@ -62,23 +64,27 @@ public class MultipartController extends BaseController {
 	@Autowired
 	IndexController indexController;
 
-	@RequestMapping(value = "/form", method = RequestMethod.POST)
-	public String handleFormUpload(@RequestParam("ruta") String ruta, @RequestParam("file") MultipartFile file,
+	@Autowired
+	MessagesConstants messagesConstants;
+
+	@PostMapping(MappingConstants.FORM_PATH)
+	public String handleFormUpload(@RequestParam String ruta, @RequestParam MultipartFile file,
 			RedirectAttributes redirectAttributes) {
 		String separador = File.separator;
 		String nameFile = file.getOriginalFilename();
-		logger.error("Archivo cargado en " + ruta + separador + nameFile);
 		try {
 			Files.copy(file.getInputStream(), Paths.get(ruta).resolve(file.getOriginalFilename()));
-			redirectAttributes.addFlashAttribute("success", file.getOriginalFilename() + " cargado correctamente");
+			logger.error(ruta + separador + nameFile);
+			redirectAttributes.addFlashAttribute(SUCCESS,
+					String.format(messagesConstants.archivoCargadoCorrecto, nameFile));
 		} catch (Exception e) {
-			logger.error("ha ocurrido un error cargando el archivo" + e);
-			redirectAttributes.addFlashAttribute("danger", "No se pudo cargar el archivo");
+			logger.error(messagesConstants.archivoCargadoError, e);
+			redirectAttributes.addFlashAttribute(DANGER, messagesConstants.archivoCargadoError);
 		}
-		return "redirect:/";
+		return REDIRECT_RUTA + ruta;
 	}
 
-	@GetMapping("/download")
+	@GetMapping(MappingConstants.DOWNLOAD_PATH)
 	@ResponseBody
 	public ResponseEntity<Resource> serveFile(@RequestParam("file_name") String filename) {
 		try {
@@ -91,35 +97,42 @@ public class MultipartController extends BaseController {
 
 			}
 		} catch (Exception ex) {
-			logger.error("error cargando archivo", ex);
+			logger.error("error descargando archivo", ex);
 		}
 		return null;
 	}
 
-	@PostMapping("/createFolder")
-	public String createFolder(@RequestParam String folder_name, Model model, RedirectAttributes redirectAttributes) {
-		Path confDir = Paths.get(folder_name);
+	@GetMapping(MappingConstants.CREATEFOLDER_PATH)
+	public String createFolder(@RequestParam String ruta, Model model, RedirectAttributes redirectAttributes) {
+		Path confDir = Paths.get(ruta);
 		try {
 			if (Files.notExists(confDir)) {
-				Files.createDirectory(Paths.get(folder_name));
-				redirectAttributes.addFlashAttribute("success", "Directorio creado");
+				Files.createDirectory(Paths.get(ruta));
+				redirectAttributes.addFlashAttribute(SUCCESS,
+						String.format(messagesConstants.directorioCreadoCorrecto, confDir.getFileName()));
 			} else {
-				redirectAttributes.addFlashAttribute("warning", "Directorio ya existe");
+				redirectAttributes.addFlashAttribute(WARNING,
+						String.format(messagesConstants.directorioCreadoExiste, confDir.getFileName()));
 			}
 		} catch (Exception ex) {
-			logger.error("error creando directorio", ex);
-			redirectAttributes.addFlashAttribute("danger", "No se pudo crear el directorio");
+			logger.error(messagesConstants.directorioCreadoError, ex);
+			redirectAttributes.addFlashAttribute(DANGER, messagesConstants.directorioCreadoError);
 		}
-		return indexController.getContentAjax(folder_name, model);
+		return REDIRECT_RUTA + ruta;
 	}
 
-	@PostMapping(value = "/delete")
-	public String removeFile(@RequestParam("file_name") String fileName,Model model) {
-		File archivo = new File(fileName);
+	@GetMapping(MappingConstants.DELETE)
+	public String removeFile(@RequestParam String ruta, Model model, RedirectAttributes redirectAttributes) {
+		File archivo = new File(ruta);
 		String parent = archivo.getParent();
-		String msj = archivo.delete() ? "Borrado Correctamente" : "No se pudo Borrar";
-		return indexController.getContentAjax(parent, model);
-		
+		if (archivo.delete()) {
+			redirectAttributes.addFlashAttribute(SUCCESS,
+					String.format(messagesConstants.archivoEliminadoCorrecto, archivo.getName()));
+		} else {
+			redirectAttributes.addFlashAttribute(WARNING, messagesConstants.archivoEliminadoError);
+		}
+		return REDIRECT_RUTA + parent;
+
 	}
 
 }

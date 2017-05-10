@@ -85,10 +85,9 @@ function newFolder(){
 			var folder = $("#nameFolder").val();
 			var ubicado = $("#ubicado").val();
 		  if (e.which == 13 && folder!="") {
-			  	var url = "/createFolder";
-		        var rendered = $("#manejador");
-		        AjaxGenericHTML(url, rendered, {folder_name: ubicado+"/"+folder}, this)
-		        updateBuscador(ruta);
+			  	var url = "/createFolder?ruta=";
+			  	var ruta = ubicado+"/"+folder;
+			  	window.location.href=url+ruta;
 			  }
 			});
 	}

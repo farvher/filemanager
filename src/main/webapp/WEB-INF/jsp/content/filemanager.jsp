@@ -7,7 +7,7 @@
 
 
 <ol class="breadcrumb">
-	<li><a href="<%=request.getContextPath().toString()%>"><span
+	<li><a href="/"><span
 			class="glyphicon glyphicon-hdd" title="Directorio principal"></span></a></li>
 	<c:forEach var="nav" items="${navegador}">
 		<c:set
@@ -83,7 +83,7 @@
 					</c:if>
 					<c:if test="${!r.isDirectory()}">
 						<a type="button" class="btn  btn-xs btn-danger "
-							onclick="deleteFile('${r.path}')"> <span
+							href="/delete?ruta=${r.path}"> <span
 							class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
 						</a>
 					</c:if>

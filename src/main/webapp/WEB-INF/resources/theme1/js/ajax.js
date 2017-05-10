@@ -15,8 +15,8 @@ function AjaxGenericHTML(url, div, param) {
     gifStart();
     $.ajax({
         url: url,
-        type: 'POST',
         data: param,
+        type: "POST",
         beforeSend: function(xhr) { 
               xhr.setRequestHeader(header, token); 
             
@@ -32,9 +32,34 @@ function AjaxGenericHTML(url, div, param) {
             gifStop();
         }
     });
-
-
 }
+
+function AjaxRedirectHTML(url, redirect, param) {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+    console.log("redireccion ajax : " + url + " params : " + JSON.stringify(param));
+    gifStart();
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: param,
+        beforeSend: function(xhr) { 
+              xhr.setRequestHeader(header, token); 
+            },
+        success: function (data, textStatus, jqXHR) {
+            window.location.href=data;
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('ha ocurrido un error' + jqXHR + " - " + textStatus + " - " + errorThrown);
+        }
+        , complete: function (jqXHR, textStatus) {
+            gifStop();
+        }
+    });
+}
+
+
 
 
 function gifStart() {

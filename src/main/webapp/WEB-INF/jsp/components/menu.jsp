@@ -15,7 +15,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand " href="<%=request.getContextPath().toString()%>">
+            <a class="navbar-brand " href="/">
                 <!--<img  class="img-rounded" src="<%=request.getContextPath().toString()%>/resources/img/icono.png" style="width: 80px"/>-->
           ShareFiler
             </a>
