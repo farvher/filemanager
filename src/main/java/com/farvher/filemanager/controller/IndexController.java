@@ -43,7 +43,7 @@ public class IndexController extends BaseController {
 
 	@Autowired
 	SecurityService secureService;
-	
+
 	@Autowired
 	MessagesConstants messagesConstants;
 
@@ -90,10 +90,11 @@ public class IndexController extends BaseController {
 		if (filesFinded != null) {
 			model.addAttribute(ROOT, filesFinded);
 			model.addAttribute(CANTIDAD, filesFinded.length);
-			if (filesFinded.length == 1) { 
+			if (filesFinded.length == 1) {
 				previewFile(filesFinded[0], model);
 			}
-			model.addAttribute(NAVEGADOR, String.format(messagesConstants.resultadosEncontrados,palabra,filesFinded.length));
+			model.addAttribute(NAVEGADOR,
+					String.format(messagesConstants.resultadosEncontrados, palabra, filesFinded.length));
 		}
 		model.addAttribute(UBICADO, buscardesde);
 
@@ -101,27 +102,24 @@ public class IndexController extends BaseController {
 
 	}
 
-	
-
 	@GetMapping(MappingConstants.ERROR404_PATH)
 	public String error404(String mensajeError, Model model) {
 		model.addAttribute(ERROR, mensajeError);
 		return ERROR404_PATH;
 	}
 
-	
 	private File getFolderFromPath(String ruta) {
 		if (ruta != null) {
 			Path path = Paths.get(ruta);
 			if (Files.exists(path) && Files.isDirectory(path)) {
 				return path.toFile();
-			}else if(Files.exists(path)){
+			} else if (Files.exists(path)) {
 				return path.toFile().getParentFile();
 			}
 		}
 		return new File(CURRENT_DIRECTORY);
 	}
-	
+
 	private void previewFile(File previewFile, Model model) {
 		if (!previewFile.isDirectory()) {
 			String tiPoArchivo = FileSort.getFileType(previewFile);
