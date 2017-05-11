@@ -27,12 +27,12 @@ public class HtmlUtil {
 	
 
     public String[] getButtonsRuta(File file) {
-
         String ruta = file.getAbsolutePath();
+        if(!file.isDirectory()){
+        	ruta = file.getParent();
+        }
         ruta = ruta.substring(1, ruta.length());
         return  ruta.split(Pattern.quote(File.separator));
-
-
     }
 
     public String processImgHtml(String ruta) {
