@@ -93,7 +93,7 @@ public class IndexController extends BaseController {
 			if (filesFinded.length == 1) { 
 				previewFile(filesFinded[0], model);
 			}
-			model.addAttribute(NAVEGADOR, String.format(messagesConstants.resultadosEncontrados,filesFinded.length,palabra));
+			model.addAttribute(NAVEGADOR, String.format(messagesConstants.resultadosEncontrados,palabra,filesFinded.length));
 		}
 		model.addAttribute(UBICADO, buscardesde);
 
