@@ -66,7 +66,7 @@ public class FileBuscador {
             Stream<File> files = Files.find(Paths.get(dir.getPath()), 
                     MAX_DEEP, 
                     (pathDir, fileAttrib) -> !fileAttrib.isDirectory())
-                    .map((path) -> path.toFile())
+                    .map(path -> path.toFile())
                     .filter(i -> i.getName().contains(palabra));
             return files.toArray(size -> new File[size]);
         } catch (IOException ex) {

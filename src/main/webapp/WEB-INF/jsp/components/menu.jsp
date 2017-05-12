@@ -96,5 +96,7 @@
 <br/>
 <br/>
   <jsp:include page="alerts.jsp"/>
+  <span>${encryptor}</span>
+  
 
 

@@ -9,6 +9,7 @@ import com.farvher.filemanager.constants.MappingConstants;
 import com.farvher.filemanager.constants.MessagesConstants;
 import com.farvher.filemanager.domain.FIleManager;
 import com.farvher.filemanager.services.SecurityService;
+import com.farvher.filemanager.util.Encryptor;
 import com.farvher.filemanager.util.FileBuscador;
 import com.farvher.filemanager.util.FileSort;
 import com.farvher.filemanager.util.HtmlUtil;
@@ -48,6 +49,9 @@ public class IndexController extends BaseController {
 	MessagesConstants messagesConstants;
 
 	File[] filesFinded;
+	
+	@Autowired
+	private Encryptor encryptor;
 
 	@Value("${resultados.cantidad.encontrados}")
 	private String cantidad;
@@ -65,6 +69,7 @@ public class IndexController extends BaseController {
 		model.addAttribute(NAVEGADOR, htmlUtil.getButtonsRuta(homeFolder));
 		model.addAttribute(UBICADO, homeFolder);
 		model.addAttribute(CANTIDAD, tempFolder.length);
+		
 		return INDEX;
 	}
 
