@@ -14,11 +14,20 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  *
  * @author geotor
  */
 public class FileSort {
+	
+	
+	private static final String[] REPLACE = {"&","<",">"};
+	
+	private static final String[] REPLACE_WITH = {"&amp","&lt","&gt"};
+	
+	
 
     public static File[] orderByNameAsc(File[] archivos) {
         Arrays.sort(archivos, new Comparator<File>() {
@@ -97,7 +106,13 @@ public class FileSort {
         String resultado = fileData.toString().length() >= 2000 ? fileData.toString().substring(0, 1900) + " ...  "+ msjWarning : fileData.toString();
         String nombre = "<h2>" + new File(filePath).getName() + "</h2>";
 
-        return nombre + resultado;
+        return "<pre><code>"+replaceCharacters(nombre + resultado)+"</pre></code>";
+    }
+    
+    private static String replaceCharacters(String html){
+    	
+    	return StringUtils.replaceEach(html, REPLACE, REPLACE_WITH);
+    	
     }
     
     
