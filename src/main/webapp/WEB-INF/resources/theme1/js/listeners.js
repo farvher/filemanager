@@ -44,10 +44,28 @@ function updateBuscador(ruta) {
 }
 
 function deleteFile(ruta){
-	var url = "/delete"
-	var rendered = $("#manejador");
-	AjaxGenericHTML(url, rendered, {file_name: ruta})
-	updateBuscador(ruta);
+	var form = $("#proccess");
+	form.attr("action","/delete");
+	$("#proccess_ruta").val(ruta);
+	form.submit();
+	$("#proccess_ruta").val("");
+}
+
+function downloadFile(ruta){
+	var form = $("#proccess");
+	form.attr("action","/download");
+	$("#proccess_ruta").val(ruta);
+	form.submit();
+	$("#proccess_ruta").val("");
+}
+
+function createFolder(ruta){
+	var form = $("#proccess");
+	form.attr("action","/createFolder");
+	$("#proccess_ruta").val(ruta);
+	form.submit();
+	$("#proccess_ruta").val("");
+	
 }
 
 
@@ -85,9 +103,8 @@ function newFolder(){
 			var folder = $("#nameFolder").val();
 			var ubicado = $("#ubicado").val();
 		  if (e.which == 13 && folder!="") {
-			  	var url = "/createFolder?ruta=";
 			  	var ruta = ubicado+"/"+folder;
-			  	window.location.href=url+ruta;
+			  	createFolder(ruta);
 			  }
 			});
 	}

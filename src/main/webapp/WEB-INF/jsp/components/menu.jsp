@@ -60,7 +60,11 @@
         <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-    </c:if>
+</c:if>
+<form action="#" method="post" id="proccess">
+<input type="hidden" id="proccess_ruta" name="ruta" />
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+</form>
 
 <style>
     .glyphicon-refresh-animate {
@@ -92,5 +96,7 @@
 <br/>
 <br/>
   <jsp:include page="alerts.jsp"/>
+  <span>${encryptor}</span>
+  
 
 

@@ -77,13 +77,13 @@
 					</div>
 					<c:if test="${!r.isDirectory()}">
 						<a type="button" class="btn  btn-xs btn-success " target="_blank"
-							href="/download?file_name=${r.path}"> <span
+							onclick="downloadFile('${r.path}')"> <span
 							class="glyphicon glyphicon-download" aria-hidden="true"></span>
 						</a>
 					</c:if>
 					<c:if test="${!r.isDirectory()}">
 						<a type="button" class="btn  btn-xs btn-danger "
-							href="/delete?ruta=${r.path}"> <span
+							onclick="deleteFile('${r.path}')"> <span
 							class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
 						</a>
 					</c:if>

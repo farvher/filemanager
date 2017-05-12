@@ -84,11 +84,11 @@ public class MultipartController extends BaseController {
 		return REDIRECT_RUTA + ruta;
 	}
 
-	@GetMapping(MappingConstants.DOWNLOAD_PATH)
+	@PostMapping(MappingConstants.DOWNLOAD_PATH)
 	@ResponseBody
-	public ResponseEntity<Resource> serveFile(@RequestParam("file_name") String filename) {
+	public ResponseEntity<Resource> serveFile(@RequestParam String ruta) {
 		try {
-			Path file = Paths.get(filename);
+			Path file = Paths.get(ruta);
 			Resource resource = new UrlResource(file.toUri());
 			if (resource.exists() || resource.isReadable()) {
 
@@ -102,7 +102,7 @@ public class MultipartController extends BaseController {
 		return null;
 	}
 
-	@GetMapping(MappingConstants.CREATEFOLDER_PATH)
+	@PostMapping(MappingConstants.CREATEFOLDER_PATH)
 	public String createFolder(@RequestParam String ruta, Model model, RedirectAttributes redirectAttributes) {
 		Path confDir = Paths.get(ruta);
 		try {
@@ -121,7 +121,7 @@ public class MultipartController extends BaseController {
 		return REDIRECT_RUTA + ruta;
 	}
 
-	@GetMapping(MappingConstants.DELETE)
+	@PostMapping(MappingConstants.DELETE)
 	public String removeFile(@RequestParam String ruta, Model model, RedirectAttributes redirectAttributes) {
 		File archivo = new File(ruta);
 		String parent = archivo.getParent();

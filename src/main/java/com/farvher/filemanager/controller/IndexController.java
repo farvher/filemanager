@@ -9,6 +9,7 @@ import com.farvher.filemanager.constants.MappingConstants;
 import com.farvher.filemanager.constants.MessagesConstants;
 import com.farvher.filemanager.domain.FIleManager;
 import com.farvher.filemanager.services.SecurityService;
+import com.farvher.filemanager.util.Encryptor;
 import com.farvher.filemanager.util.FileBuscador;
 import com.farvher.filemanager.util.FileSort;
 import com.farvher.filemanager.util.HtmlUtil;
@@ -43,11 +44,14 @@ public class IndexController extends BaseController {
 
 	@Autowired
 	SecurityService secureService;
-	
+
 	@Autowired
 	MessagesConstants messagesConstants;
 
 	File[] filesFinded;
+	
+	@Autowired
+	private Encryptor encryptor;
 
 	@Value("${resultados.cantidad.encontrados}")
 	private String cantidad;
@@ -65,6 +69,7 @@ public class IndexController extends BaseController {
 		model.addAttribute(NAVEGADOR, htmlUtil.getButtonsRuta(homeFolder));
 		model.addAttribute(UBICADO, homeFolder);
 		model.addAttribute(CANTIDAD, tempFolder.length);
+		
 		return INDEX;
 	}
 
@@ -90,10 +95,11 @@ public class IndexController extends BaseController {
 		if (filesFinded != null) {
 			model.addAttribute(ROOT, filesFinded);
 			model.addAttribute(CANTIDAD, filesFinded.length);
-			if (filesFinded.length == 1) { 
+			if (filesFinded.length == 1) {
 				previewFile(filesFinded[0], model);
 			}
-			model.addAttribute(NAVEGADOR, String.format(messagesConstants.resultadosEncontrados,palabra,filesFinded.length));
+			model.addAttribute(NAVEGADOR,
+					String.format(messagesConstants.resultadosEncontrados, palabra, filesFinded.length));
 		}
 		model.addAttribute(UBICADO, buscardesde);
 
@@ -101,27 +107,24 @@ public class IndexController extends BaseController {
 
 	}
 
-	
-
 	@GetMapping(MappingConstants.ERROR404_PATH)
 	public String error404(String mensajeError, Model model) {
 		model.addAttribute(ERROR, mensajeError);
 		return ERROR404_PATH;
 	}
 
-	
 	private File getFolderFromPath(String ruta) {
 		if (ruta != null) {
 			Path path = Paths.get(ruta);
 			if (Files.exists(path) && Files.isDirectory(path)) {
 				return path.toFile();
-			}else if(Files.exists(path)){
+			} else if (Files.exists(path)) {
 				return path.toFile().getParentFile();
 			}
 		}
 		return new File(CURRENT_DIRECTORY);
 	}
-	
+
 	private void previewFile(File previewFile, Model model) {
 		if (!previewFile.isDirectory()) {
 			String tiPoArchivo = FileSort.getFileType(previewFile);
