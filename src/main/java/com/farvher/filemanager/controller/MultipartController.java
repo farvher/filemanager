@@ -50,7 +50,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class MultipartController extends BaseController {
 
-	private static final Logger logger = LoggerFactory.getLogger(MultipartController.class);
 
 	@Autowired
 	HtmlUtil htmlUtil;
@@ -74,11 +73,11 @@ public class MultipartController extends BaseController {
 		String nameFile = file.getOriginalFilename();
 		try {
 			Files.copy(file.getInputStream(), Paths.get(ruta).resolve(file.getOriginalFilename()));
-			logger.error(ruta + separador + nameFile);
+//			logger.error(ruta + separador + nameFile);
 			redirectAttributes.addFlashAttribute(SUCCESS,
 					String.format(messagesConstants.archivoCargadoCorrecto, nameFile));
 		} catch (Exception e) {
-			logger.error(messagesConstants.archivoCargadoError, e);
+//			logger.error(messagesConstants.archivoCargadoError, e);
 			redirectAttributes.addFlashAttribute(DANGER, messagesConstants.archivoCargadoError);
 		}
 		return REDIRECT_RUTA + ruta;
@@ -97,7 +96,7 @@ public class MultipartController extends BaseController {
 
 			}
 		} catch (Exception ex) {
-			logger.error("error descargando archivo", ex);
+//			logger.error("error descargando archivo", ex);
 		}
 		return null;
 	}
@@ -115,7 +114,7 @@ public class MultipartController extends BaseController {
 						String.format(messagesConstants.directorioCreadoExiste, confDir.getFileName()));
 			}
 		} catch (Exception ex) {
-			logger.error(messagesConstants.directorioCreadoError, ex);
+//			logger.error(messagesConstants.directorioCreadoError, ex);
 			redirectAttributes.addFlashAttribute(DANGER, messagesConstants.directorioCreadoError);
 		}
 		return REDIRECT_RUTA + ruta;
