@@ -34,6 +34,8 @@ hs_err_pid*
 ## ignoring target file
 target/
 
+.idea/
+
 ### Maven ###
 pom.xml.tag
 pom.xml.releaseBackup
