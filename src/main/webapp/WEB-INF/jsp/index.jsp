@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="${contextPath}/resources/img/favicon.ico"/>
-        <title>ShareFiler</title>
+        <title></title>
 
         <!-- Bootstrap -->
         <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
