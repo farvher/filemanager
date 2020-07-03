@@ -15,10 +15,14 @@
         <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
         <link href="${contextPath}/resources/css/custom.css" rel="stylesheet">
         <link href="//code.jquery.com/ui/1.11.4/themes/ui-darkness/jquery-ui.css" rel="stylesheet">
+
+
 	
 		<meta name="_csrf" content="${_csrf.token}"/>
 	<!-- default header name is X-CSRF-TOKEN -->
 		<meta name="_csrf_header" content="${_csrf.headerName}"/>
+
+
 	
 
     </head>

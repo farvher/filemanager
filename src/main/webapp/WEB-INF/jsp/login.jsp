@@ -21,6 +21,12 @@
 
     <title>Log in with your account</title>
 
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@FarithSn" />
+<meta name="twitter:title" content="File Manager - by Farith Sanmiguel" />
+<meta name="twitter:description" content="Simple file manager app for multimedia" />
+<meta name="twitter:image" content="https://files-manager.herokuapp.com/resources/img/captura.png" />
+
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
 
