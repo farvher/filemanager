@@ -31,12 +31,17 @@
 hs_err_pid*
 
 ### Java-Web ###
-## ignoring target file
+## ignoring build outputs
 target/
+build/
+.gradle/
 
 .idea/
 
-### Maven ###
+### Gradle ###
+!gradle/wrapper/gradle-wrapper.jar
+
+### Maven (legacy - project now uses Gradle) ###
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup

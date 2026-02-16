@@ -2,7 +2,7 @@ package com.farvher.filemanager;
 
 import java.io.File;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -13,7 +13,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author geotor
  */
 @SpringBootApplication
-@EnableAutoConfiguration
 public class FileManagerApplication {
 
 	private final static String FOLDERAPP = "/files-manager/";

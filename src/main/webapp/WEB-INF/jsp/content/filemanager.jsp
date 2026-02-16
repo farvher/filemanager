@@ -76,14 +76,20 @@
 						</h4>
 					</div>
 					<c:if test="${!r.isDirectory()}">
+						<c:url value="/download" var="downloadUrl">
+							<c:param name="file_name" value="${r.path}"/>
+						</c:url>
 						<a type="button" class="btn  btn-xs btn-success " target="_blank"
-							href="/download?file_name=${r.path}"> <span
+							href="${downloadUrl}"> <span
 							class="glyphicon glyphicon-download" aria-hidden="true"></span>
 						</a>
 					</c:if>
 					<c:if test="${!r.isDirectory()}">
+						<c:url value="/delete" var="deleteUrl">
+							<c:param name="ruta" value="${fn:replace(r.path, '\\\\', '/')}"/>
+						</c:url>
 						<a type="button" class="btn  btn-xs btn-danger "
-							href="/delete?ruta=${r.path}"> <span
+							href="${deleteUrl}"> <span
 							class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
 						</a>
 					</c:if>

@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.regex.Pattern;
 
-import javax.xml.bind.DatatypeConverter;
+import java.util.Base64;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ public class HtmlUtil {
         	ruta = file.getParent();
         }
         ruta = ruta.substring(1, ruta.length());
-        return  ruta.split(Pattern.quote(File.separator));
+            return  ruta.split(Pattern.quote(File.separator));
     }
 
     public String processImgHtml(String ruta) {
@@ -47,7 +47,7 @@ public class HtmlUtil {
                 System.arraycopy(ba, 0, baTmp, imageBytes.length, ba.length);
                 imageBytes = baTmp;
             }
-            img = "<img  class='img-responsive img-rounded img-thumbnail' src='data:image/png;base64," + DatatypeConverter.printBase64Binary(imageBytes) + "'>";
+            img = "<img  class='img-responsive img-rounded img-thumbnail' src='data:image/png;base64," + Base64.getEncoder().encodeToString(imageBytes) + "'>";
 
         } catch (Exception e) {
             logger.error("No se pudo procesar la imagen " + e);

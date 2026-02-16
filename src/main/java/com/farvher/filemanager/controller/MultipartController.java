@@ -22,7 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,7 +80,7 @@ public class MultipartController extends BaseController {
 //			logger.error(messagesConstants.archivoCargadoError, e);
 			redirectAttributes.addFlashAttribute(DANGER, messagesConstants.archivoCargadoError);
 		}
-		return REDIRECT_RUTA + ruta;
+		return REDIRECT_RUTA + ruta.replaceAll("\\\\", "/");
 	}
 
 	@GetMapping(MappingConstants.DOWNLOAD_PATH)
@@ -130,7 +130,7 @@ public class MultipartController extends BaseController {
 		} else {
 			redirectAttributes.addFlashAttribute(WARNING, messagesConstants.archivoEliminadoError);
 		}
-		return REDIRECT_RUTA + parent;
+		return REDIRECT_RUTA + parent.replaceAll("\\\\", "/");
 
 	}
 
